@@ -1,22 +1,30 @@
-// ALERT 1: Untuk pastikan fail dikesan
-alert("Menyambung ke DALe EduHub...");
+// ALERT 1: Pengesahan fail berjalan
+alert("Sistem DALe EduHub: Memulakan sambungan...");
 
+// --- CONFIGURATION ---
 const SB_URL = 'https://ktfhmqvuhqlzhkotorsi.supabase.co';
-// Key yang telah dibersihkan
-const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt0ZmhtcXZ1aHFsemhrb3RvcnNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTE2OTI2MTAsImV4cCI6MjAyNzI2ODYxMH0.yIqlOSSz_40EuFJV2DaLMIaD5Ou6A9ycMQMAxrMohyA';
+
+// Kunci ini saya ambil terus daripada screenshot anda.
+// Saya letakkan .trim() di hujung untuk buang sebarang 'space' tersembunyi.
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt0ZmhtcXZ1aHFsemhrb3RvcnNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTE2OTI2MTAsImV4cCI6MjAyNzI2ODYxMH0.yIqlOSSz_40EuFJV2DaLMIaD5Ou6A9ycMQMAxrMohyA'.trim();
 
 let supabase;
 
 try {
+    // Inisialisasi Supabase dengan kunci yang telah dibersihkan
     supabase = window.supabase.createClient(SB_URL, SB_KEY);
+    console.log("Supabase client initialized.");
 } catch (e) {
     alert("Ralat Pemula: " + e.message);
 }
 
+// --- FUNGSI LOAD TESTIMONI ---
 async function loadTestimonials() {
     const wrapper = document.getElementById('testimoniWrapper');
     const loading = document.getElementById('testimoniLoading');
     const swiperCont = document.getElementById('testimoniSwiper');
+
+    if (!wrapper) return;
 
     try {
         const { data, error } = await supabase
@@ -25,6 +33,7 @@ async function loadTestimonials() {
             .eq('active', true);
 
         if (error) {
+            // Jika keluar Invalid API Key lagi, alert ini akan muncul
             alert("Ralat Supabase: " + error.message);
             return;
         }
@@ -46,11 +55,10 @@ async function loadTestimonials() {
             if (loading) loading.style.display = 'none';
             if (swiperCont) swiperCont.style.display = 'block';
 
-            // Mula Swiper
             new Swiper('.mySwiper', {
                 slidesPerView: 1,
                 spaceBetween: 20,
-                loop: true,
+                loop: data.length > 1,
                 observer: true,
                 observeParents: true,
                 pagination: { el: '.swiper-pagination', clickable: true },
@@ -60,9 +68,9 @@ async function loadTestimonials() {
                 }
             });
             
-            alert("Testimoni Berjaya Dimuatkan!");
+            alert("✅ Berjaya! Testimoni telah dimuatkan.");
         } else {
-            alert("Sambungan OK, tetapi tiada data dalam table.");
+            alert("Maklum: Tiada data aktif dalam table testimonials.");
             if (loading) loading.style.display = 'none';
         }
     } catch (err) {
@@ -70,16 +78,18 @@ async function loadTestimonials() {
     }
 }
 
-// Borang WhatsApp
+// --- FUNGSI BORANG WHATSAPP ---
 const myForm = document.getElementById('whatsappForm');
 if (myForm) {
     myForm.onsubmit = async function(e) {
         e.preventDefault();
         const btn = document.getElementById('submitBtn');
-        btn.disabled = true;
-        btn.innerHTML = "Sila Tunggu...";
+        const originalText = btn.innerHTML;
 
         try {
+            btn.disabled = true;
+            btn.innerHTML = "Memproses...";
+
             const sName = document.getElementById('stuName').value;
             const pName = document.getElementById('parentName').value;
             const pPhone = document.getElementById('parentPhone').value;
@@ -88,7 +98,6 @@ if (myForm) {
             const sSub = document.getElementById('stuSubject').value;
             const cType = document.getElementById('classType').value;
 
-            // Simpan ke Database
             const { error } = await supabase.from('students').insert([{
                 name: sName,
                 parent_name: pName,
@@ -100,16 +109,16 @@ if (myForm) {
 
             if (error) throw error;
 
-            // Redirect ke WhatsApp
             const msg = `*PENDAFTARAN DALE EDUHUB*%0A%0ANama: ${sName}%0ASubjek: ${sSub}%0AJenis: ${cType}`;
             window.location.href = `https://wa.me/60128258869?text=${msg}`;
 
         } catch (err) {
             alert("Gagal daftar: " + err.message);
             btn.disabled = false;
-            btn.innerHTML = "Hantar";
+            btn.innerHTML = originalText;
         }
     };
 }
 
-window.onload = loadTestimonials;
+// Menjalankan fungsi sebaik sahaja halaman dimuatkan sepenuhnya
+window.addEventListener('load', loadTestimonials);
