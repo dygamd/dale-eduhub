@@ -18,6 +18,9 @@ function showPage(pageName) {
     const targetPage = document.getElementById(pageName + '-page');
     if (targetPage) {
         targetPage.classList.add('active');
+    } else {
+        console.error('Page not found:', pageName + '-page');
+        return;
     }
     
     // Update active nav link
@@ -33,6 +36,11 @@ function showPage(pageName) {
     
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // If testimonials page, load data
+    if (pageName === 'home') {
+        loadTestimonials();
+    }
     
     // Close mobile menu if open
     if (mobileMenuOpen) {
@@ -70,7 +78,7 @@ function toggleMobileMenu() {
     }
 }
 
-// Toast function
+// ==================== TOAST NOTIFICATION ====================
 function showToast(message, type = 'success') {
     const toast = document.getElementById('toast');
     const toastMessage = document.getElementById('toastMessage');
@@ -82,8 +90,10 @@ function showToast(message, type = 'success') {
     }, 3000);
 }
 
-// Load testimonials function
+// ==================== LOAD TESTIMONIALS ====================
 async function loadTestimonials() {
+    console.log('Loading testimonials from Supabase...');
+    
     try {
         const { data: testimonials, error } = await supabase
             .from('testimonials')
@@ -91,11 +101,18 @@ async function loadTestimonials() {
             .eq('active', true)
             .order('id', { ascending: true });
 
-        if (error) throw error;
+        if (error) {
+            console.error('Supabase error:', error);
+            showToast('Gagal memuatkan testimoni', 'error');
+            useDummyTestimonials();
+            return;
+        }
 
         if (testimonials && testimonials.length > 0) {
+            console.log('Testimonials loaded:', testimonials.length);
             renderTestimonials(testimonials);
         } else {
+            console.log('No testimonials found, using dummy data');
             useDummyTestimonials();
         }
     } catch (error) {
@@ -104,33 +121,48 @@ async function loadTestimonials() {
     }
 }
 
+// ==================== DUMMY TESTIMONIALS ====================
 function useDummyTestimonials() {
     const dummyTestimonials = [
         {
             name: "Cik Syuhada",
             subject: "Matematik (Menengah Atas)",
-            message: "Kelas dengan cikgu Dayang sangat okay. Cikgu tak berat mulut untuk ulang semula kalau saya tak faham."
+            message: "Kelas dengan cikgu Dayang sangat okay. Cikgu tak berat mulut untuk ulang semula kalau saya tak faham. Cikgu pun ajar perlahan tak terlalu laju."
         },
         {
             name: "Encik Azimy",
             subject: "Sains Komputer",
-            message: "Anak saya okay dan faham dengan kelas cikgu Dayang."
+            message: "Sebelum ini, anak lelaki saya pernah belajar dengan cikgu Dayang bagi kelas intensif sebelum SPM. Kali ini, anak perempuan saya pulak yang menjadi murid kepada cikgu Dayang. Alhamdulilah, kedua-dua anak saya okay dan faham dengan kelas cikgu Dayang."
         },
         {
             name: "Puan Basyirah",
             subject: "Matematik (Menengah Rendah)",
-            message: "Terima kasih cikgu Dayang kerana sangat sabar."
+            message: "Terima kasih cikgu Dayang kerana sangat sabar dalam mengajar anak saya yang pendiam."
+        },
+        {
+            name: "Puan Aiza",
+            subject: "Bahasa Jepun",
+            message: "Alhamdulillah sangat mudah berurusan dengan cikgu. Anak saya pun okay dan faham dengan apa yang cikgu ajar."
+        },
+        {
+            name: "Encik Khalid",
+            subject: "Sains Komputer",
+            message: "Tutor baik dan sangat knowledgable. Anak saya nampak bersemangat untuk belajar setiap kali ada kelas. Highly recommended!"
         }
     ];
     renderTestimonials(dummyTestimonials);
 }
 
+// ==================== RENDER TESTIMONIALS ====================
 function renderTestimonials(testimonials) {
     const wrapper = document.getElementById('testimoniWrapper');
     const loading = document.getElementById('testimoniLoading');
     const swiper = document.getElementById('testimoniSwiper');
     
-    if (!wrapper) return;
+    if (!wrapper) {
+        console.error('Testimoni wrapper not found');
+        return;
+    }
     
     wrapper.innerHTML = '';
     
@@ -150,20 +182,36 @@ function renderTestimonials(testimonials) {
     loading.style.display = 'none';
     swiper.style.display = 'block';
     
-    new Swiper(".mySwiper", {
+    // Destroy existing Swiper instance if any
+    if (window.testimonialSwiper) {
+        window.testimonialSwiper.destroy();
+    }
+    
+    // Initialize Swiper
+    window.testimonialSwiper = new Swiper(".mySwiper", {
         slidesPerView: 1,
         spaceBetween: 15,
         loop: true,
-        autoplay: { delay: 4000 },
-        pagination: { el: ".swiper-pagination", clickable: true },
+        autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
         breakpoints: {
-            640: { slidesPerView: 2 },
-            1024: { slidesPerView: 3 },
+            640: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 3,
+            },
         },
     });
 }
 
-// Form submission
+// ==================== FORM SUBMISSION ====================
 document.getElementById('whatsappForm')?.addEventListener('submit', async function(e) {
     e.preventDefault();
     
@@ -171,7 +219,7 @@ document.getElementById('whatsappForm')?.addEventListener('submit', async functi
     const formLoading = document.getElementById('formLoading');
     const form = document.getElementById('whatsappForm');
     
-    // Validate
+    // Validate required fields
     const studentName = document.getElementById('stuName').value;
     const parentEmail = document.getElementById('parentEmail').value;
     const parentPhone = document.getElementById('parentPhone').value;
@@ -184,11 +232,12 @@ document.getElementById('whatsappForm')?.addEventListener('submit', async functi
         return;
     }
     
-    // Show loading
+    // Disable button and show loading
     submitBtn.disabled = true;
     form.style.display = 'none';
     formLoading.style.display = 'block';
     
+    // Collect form data
     const formData = {
         parentName: document.getElementById('parentName').value,
         studentName: studentName,
@@ -216,11 +265,17 @@ document.getElementById('whatsappForm')?.addEventListener('submit', async functi
                 }
             ]);
 
-        if (error) throw error;
+        if (error) {
+            console.error('Supabase error:', error);
+            throw new Error('Gagal menyimpan data');
+        }
+
+        console.log('Registration saved successfully:', data);
 
         // Send to WhatsApp
         const phoneNumber = "60128258869";
-        const parentInfo = formData.parentName ? `• Nama Ibu/Bapa: ${formData.parentName}\n` : '';
+        
+        let parentInfo = formData.parentName ? `• Nama Ibu/Bapa: ${formData.parentName}\n` : '';
 
         const waText = `Salam Cikgu Dayang, saya berminat untuk mendaftar di *DALe EduHub*.\n\n` +
                      `*Butiran Pendaftaran:*\n` +
@@ -234,28 +289,36 @@ document.getElementById('whatsappForm')?.addEventListener('submit', async functi
                      `• Keputusan/Cita-cita: ${formData.message || "Tiada"}\n\n` +
                      `Terima kasih!`;
 
+        // Open WhatsApp
         window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(waText)}`, '_blank');
-        showToast('Pendaftaran berjaya!', 'success');
+        
+        // Show success message
+        showToast('Pendaftaran berjaya! Data disimpan.', 'success');
+        
+        // Reset form
         form.reset();
         
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Submission error:', error);
         showToast('Ralat berlaku. Sila cuba lagi.', 'error');
     } finally {
+        // Re-enable form
         submitBtn.disabled = false;
         form.style.display = 'block';
         formLoading.style.display = 'none';
     }
 });
 
-// Initialize
+// ==================== INITIALIZE ====================
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded');
+    console.log('DOM loaded, initializing...');
     
     // Load testimonials on home page
-    loadTestimonials();
+    if (document.getElementById('home-page')?.classList.contains('active')) {
+        loadTestimonials();
+    }
     
-    // Handle window resize
+    // Handle window resize for mobile menu
     window.addEventListener('resize', function() {
         if (window.innerWidth > 768 && mobileMenuOpen) {
             toggleMobileMenu();
