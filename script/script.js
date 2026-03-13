@@ -1,7 +1,7 @@
 // ==================== SUPABASE CONFIG ====================
 const supabase = window.supabase.createClient(
     'https://ktfhmqvuhqlzhkotorsi.supabase.co',
-    'sb_publishable_kOz2lNp6289X7bajR5qmTw_Q1_Vh1zf'
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt0ZmhtcXZ1aHFsemhrb3RvcnNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyNTY3NTQsImV4cCI6MjA4ODgzMjc1NH0.yIqlOSSz_40EuFJV2DaLMIaD5Ou6A9ycMQMAxrMohyA'
 );
 
 // ==================== LOAD TESTIMONIALS WITH SWIPER ====================
