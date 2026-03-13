@@ -124,6 +124,28 @@ body {
     to { transform: rotate(360deg); }
 }
 
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
 /* ==================== NAVIGATION ==================== */
 header {
     background: var(--glass);
@@ -328,7 +350,7 @@ nav {
 /* ==================== BUTTONS ==================== */
 .btn {
     display: inline-block;
-    background: var(--accent);
+    background: linear-gradient(135deg, var(--accent), #fbbf24);
     color: var(--white);
     padding: 14px 32px;
     border-radius: 50px;
@@ -403,7 +425,7 @@ nav {
     font-size: 1.1rem;
 }
 
-/* ==================== FEATURE CARDS (MACAM METODOLOGI) ==================== */
+/* ==================== FEATURE CARDS (MACAM TUTOR PROFILE) ==================== */
 .feature-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -556,7 +578,7 @@ nav {
     transform: translateX(5px);
 }
 
-/* ==================== TESTIMONIALS SECTION WITH SCROLL ==================== */
+/* ==================== TESTIMONIALS SECTION ==================== */
 .testimonials-section {
     background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
     position: relative;
@@ -586,7 +608,7 @@ nav {
 }
 
 .testi-card {
-    background: var(--white);
+    background: white;
     border-radius: 30px;
     padding: 25px;
     border: 1px solid var(--gray-light);
@@ -719,11 +741,12 @@ nav {
     color: white;
 }
 
-/* ==================== PRICING SECTION ==================== */
+/* ==================== PRICING SECTION - MACAM TUTOR PROFILE ==================== */
 .pricing-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
+    margin: 40px 0;
 }
 
 .pricing-card {
@@ -737,29 +760,29 @@ nav {
     flex-direction: column;
     position: relative;
     overflow: hidden;
+    box-shadow: var(--shadow);
 }
 
 .pricing-card:hover {
-    transform: translateY(-10px) scale(1.02);
+    transform: translateY(-10px);
     box-shadow: var(--shadow-xl);
-    border-color: var(--primary);
+    border-color: var(--accent);
 }
 
 .pricing-card::before {
     content: '';
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(79, 70, 229, 0.05) 0%, transparent 70%);
-    opacity: 0;
-    transition: opacity 0.6s;
-    animation: rotate 20s linear infinite;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    transform: translateX(-100%);
+    transition: transform 0.6s;
 }
 
 .pricing-card:hover::before {
-    opacity: 1;
+    transform: translateX(0);
 }
 
 .pricing-card::after {
@@ -767,20 +790,28 @@ nav {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, transparent 50%, rgba(79, 70, 229, 0.02) 100%);
-    pointer-events: none;
+    width: 4px;
+    height: 0;
+    background: linear-gradient(to bottom, var(--accent), var(--primary));
+    transition: height 0.3s;
 }
 
+.pricing-card:hover::after {
+    height: 100%;
+}
+
+/* Card Paling Popular */
 .pricing-card.highlighted {
     border: 2px solid var(--accent);
     transform: scale(1.02);
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 15px 30px rgba(245, 158, 11, 0.15);
+    position: relative;
+    z-index: 2;
 }
 
 .pricing-card.highlighted:hover {
     transform: scale(1.02) translateY(-10px);
+    box-shadow: 0 20px 40px rgba(245, 158, 11, 0.25);
 }
 
 .popular-badge {
@@ -788,21 +819,25 @@ nav {
     top: -12px;
     left: 50%;
     transform: translateX(-50%);
-    background: linear-gradient(135deg, #fbbf24, var(--accent));
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
     color: white;
-    padding: 6px 25px;
+    padding: 8px 25px;
     border-radius: 50px;
     font-size: 0.9rem;
-    font-weight: 600;
-    box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+    font-weight: 700;
+    box-shadow: 0 5px 15px rgba(245, 158, 11, 0.4);
     animation: pulse 2s infinite;
-    z-index: 2;
+    z-index: 3;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .pricing-card h3 {
-    font-size: 1.8rem;
+    font-size: 2rem;
     margin-bottom: 10px;
     color: var(--primary-dark);
+    font-weight: 700;
+    text-align: center;
     transition: color 0.3s;
 }
 
@@ -813,14 +848,25 @@ nav {
 .level-tag {
     color: var(--gray);
     font-size: 1rem;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 500;
 }
 
+/* Harga */
 .price {
-    font-size: 2.5rem;
-    font-weight: 700;
+    font-size: 3rem;
+    font-weight: 800;
     color: var(--primary-dark);
     margin: 20px 0;
+    text-align: center;
+    line-height: 1.2;
+    position: relative;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
     transition: all 0.3s;
 }
 
@@ -829,25 +875,52 @@ nav {
     color: var(--primary);
 }
 
-.price-period {
+.original-price {
+    font-size: 1.8rem;
+    color: var(--red);
+    text-decoration: line-through;
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+.discount-badge {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: white;
+    padding: 6px 15px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    display: inline-block;
+    box-shadow: 0 3px 10px rgba(245, 158, 11, 0.3);
+    animation: pulse 2s infinite;
+    margin-left: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.price span {
     font-size: 1rem;
     font-weight: 400;
     color: var(--gray);
 }
 
+/* Subject Tags */
 .subject-tags {
-    margin: 15px 0;
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
 }
 
 .subject-tag {
     background: #eef2ff;
     color: var(--primary);
-    padding: 6px 16px;
+    padding: 8px 18px;
     border-radius: 50px;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 600;
-    margin: 4px;
-    display: inline-block;
+    border: 1px solid var(--primary-light);
     transition: all 0.3s;
 }
 
@@ -858,19 +931,27 @@ nav {
     box-shadow: var(--shadow);
 }
 
+/* Feature List */
 .feature-list {
     list-style: none;
-    margin: 20px 0 30px;
+    margin: 25px 0 30px;
     flex-grow: 1;
 }
 
 .feature-list li {
-    margin-bottom: 12px;
+    margin-bottom: 15px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 0.95rem;
-    transition: transform 0.3s;
+    gap: 12px;
+    font-size: 1rem;
+    color: var(--dark);
+    transition: all 0.3s;
+    padding: 5px 0;
+    border-bottom: 1px dashed var(--gray-light);
+}
+
+.feature-list li:last-child {
+    border-bottom: none;
 }
 
 .feature-list li:hover {
@@ -880,52 +961,116 @@ nav {
 
 .feature-list li::before {
     content: "✓";
-    color: var(--accent);
+    color: white;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1rem;
+    background: linear-gradient(135deg, var(--accent), #fbbf24);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(245, 158, 11, 0.3);
+    flex-shrink: 0;
     transition: transform 0.3s;
 }
 
 .feature-list li:hover::before {
-    transform: scale(1.2);
-    color: var(--primary);
+    transform: scale(1.1);
 }
 
+/* Pricing Button */
 .pricing-btn {
     width: 100%;
     text-align: center;
-    padding: 14px;
+    padding: 15px;
     margin-top: auto;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 50px;
+    transition: all 0.3s;
     position: relative;
     z-index: 2;
 }
 
-.promo-banner {
-    text-align: center;
-    margin-top: 40px;
-    background: white;
-    padding: 20px;
-    border-radius: 50px;
-    font-weight: 600;
+.pricing-card .btn-outline {
+    border: 2px solid var(--primary);
     color: var(--primary);
-    box-shadow: var(--shadow);
-    font-size: 1.1rem;
-    transition: all 0.3s;
-    border: 1px solid var(--gray-light);
-    position: relative;
-    overflow: hidden;
+    background: transparent;
 }
 
-.promo-banner:hover {
+.pricing-card .btn-outline:hover {
+    background: var(--primary);
+    color: white;
     transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+}
+
+.pricing-card .btn {
+    background: linear-gradient(135deg, var(--accent), #fbbf24);
+    color: white;
+    border: none;
+    box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+}
+
+.pricing-card .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(245, 158, 11, 0.4);
+}
+
+/* Promo Banner */
+.promo-banner {
+    text-align: center;
+    margin-top: 50px;
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    padding: 20px 30px;
+    border-radius: 100px;
+    font-weight: 700;
+    color: var(--primary-dark);
     box-shadow: var(--shadow-lg);
-    border-color: var(--accent);
+    font-size: 1.2rem;
+    border: 2px solid var(--accent);
+    position: relative;
+    overflow: hidden;
+    animation: glow 2s infinite;
+}
+
+@keyframes glow {
+    0%, 100% { box-shadow: 0 5px 20px rgba(245, 158, 11, 0.3); }
+    50% { box-shadow: 0 10px 30px rgba(245, 158, 11, 0.5); }
+}
+
+.promo-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+    animation: rotate 10s linear infinite;
+}
+
+.promo-banner p {
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 .promo-banner i {
+    font-size: 1.5rem;
     color: var(--accent);
-    animation: pulse 2s infinite;
-    margin-right: 8px;
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
 }
 
 /* ==================== FORM SECTION ==================== */
@@ -1048,7 +1193,7 @@ nav {
     padding: 18px;
     font-size: 1.1rem;
     margin-top: 20px;
-    background: var(--accent);
+    background: linear-gradient(135deg, var(--accent), #fbbf24);
     color: white;
     border: none;
     border-radius: 50px;
@@ -1110,7 +1255,6 @@ nav {
     min-width: 300px;
     text-align: center;
     border-left: 4px solid var(--accent);
-    animation: slideUp 0.3s ease;
 }
 
 .toast.show {
@@ -1126,6 +1270,12 @@ nav {
     to {
         transform: translate(-50%, 0%);
         opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
     }
 }
 
@@ -1343,6 +1493,14 @@ hr {
     .section-title h2 {
         font-size: 2.2rem;
     }
+    
+    .price {
+        font-size: 2.5rem;
+    }
+    
+    .original-price {
+        font-size: 1.5rem;
+    }
 }
 
 @media (max-width: 768px) {
@@ -1448,6 +1606,16 @@ hr {
     .form-container {
         padding: 30px 20px;
     }
+    
+    .price {
+        font-size: 2.8rem;
+    }
+    
+    .promo-banner {
+        font-size: 1rem;
+        padding: 15px 20px;
+        border-radius: 50px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1470,12 +1638,31 @@ hr {
     }
     
     .price {
-        font-size: 2rem;
+        font-size: 2.2rem;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .original-price {
+        font-size: 1.3rem;
+    }
+    
+    .discount-badge {
+        font-size: 0.8rem;
+        padding: 4px 12px;
+    }
+    
+    .subject-tag {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+    
+    .feature-list li {
+        font-size: 0.9rem;
     }
     
     .feature-card,
-    .pricing-card,
-    .methodology-card {
+    .pricing-card {
         padding: 25px 20px;
     }
     
@@ -1486,8 +1673,7 @@ hr {
     }
     
     .feature-card h3,
-    .pricing-card h3,
-    .methodology-card h3 {
+    .pricing-card h3 {
         font-size: 1.3rem;
     }
     
@@ -1538,7 +1724,8 @@ hr {
     footer,
     .btn,
     .form-section,
-    .hero-btns {
+    .hero-btns,
+    .pricing-btn {
         display: none;
     }
     
@@ -1557,5 +1744,14 @@ hr {
     .testi-card {
         box-shadow: none;
         border: 1px solid #ccc;
+        transform: none;
+    }
+    
+    .popular-badge,
+    .discount-badge {
+        background: #ccc;
+        color: black;
+        box-shadow: none;
+        animation: none;
     }
 }
