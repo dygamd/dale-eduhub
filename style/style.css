@@ -124,26 +124,14 @@ body {
     to { transform: rotate(360deg); }
 }
 
-@keyframes slideInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+@keyframes slide {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(100%); }
 }
 
-@keyframes slideInRight {
-    from {
-        opacity: 0;
-        transform: translateX(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
 }
 
 /* ==================== NAVIGATION ==================== */
@@ -425,7 +413,7 @@ nav {
     font-size: 1.1rem;
 }
 
-/* ==================== FEATURE CARDS (MACAM TUTOR PROFILE) ==================== */
+/* ==================== FEATURE CARDS ==================== */
 .feature-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -670,7 +658,6 @@ nav {
     z-index: 2;
 }
 
-/* Custom scrollbar */
 .testi-content::-webkit-scrollbar {
     width: 5px;
 }
@@ -741,7 +728,7 @@ nav {
     color: white;
 }
 
-/* ==================== PRICING SECTION - MACAM TUTOR PROFILE ==================== */
+/* ==================== PRICING SECTION ==================== */
 .pricing-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -800,7 +787,6 @@ nav {
     height: 100%;
 }
 
-/* Card Paling Popular */
 .pricing-card.highlighted {
     border: 2px solid var(--accent);
     transform: scale(1.02);
@@ -853,26 +839,38 @@ nav {
     font-weight: 500;
 }
 
-/* Harga */
+.price-container {
+    background: #f8fafc;
+    border-radius: 20px;
+    padding: 20px 15px;
+    margin: 15px 0 20px;
+    position: relative;
+    border: 1px dashed var(--primary-light);
+}
+
 .price {
-    font-size: 3rem;
+    font-size: 2.8rem;
     font-weight: 800;
     color: var(--primary-dark);
-    margin: 20px 0;
     text-align: center;
     line-height: 1.2;
-    position: relative;
     display: flex;
     align-items: baseline;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 8px;
-    transition: all 0.3s;
+    gap: 10px;
+    margin-bottom: 5px;
 }
 
-.pricing-card:hover .price {
-    transform: scale(1.05);
-    color: var(--primary);
+.current-price {
+    color: var(--primary-dark);
+    font-size: 3rem;
+}
+
+.price-period {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--gray);
 }
 
 .original-price {
@@ -881,30 +879,32 @@ nav {
     text-decoration: line-through;
     font-weight: 400;
     opacity: 0.8;
+    margin-right: 5px;
 }
 
 .discount-badge {
     background: linear-gradient(135deg, #fbbf24, #f59e0b);
     color: white;
-    padding: 6px 15px;
+    padding: 5px 15px;
     border-radius: 50px;
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 700;
     display: inline-block;
     box-shadow: 0 3px 10px rgba(245, 158, 11, 0.3);
     animation: pulse 2s infinite;
-    margin-left: 5px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    margin-top: 5px;
 }
 
-.price span {
-    font-size: 1rem;
-    font-weight: 400;
-    color: var(--gray);
+.price-detail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
-/* Subject Tags */
 .subject-tags {
     margin: 20px 0;
     display: flex;
@@ -931,7 +931,6 @@ nav {
     box-shadow: var(--shadow);
 }
 
-/* Feature List */
 .feature-list {
     list-style: none;
     margin: 25px 0 30px;
@@ -965,8 +964,8 @@ nav {
     font-weight: 700;
     font-size: 1rem;
     background: linear-gradient(135deg, var(--accent), #fbbf24);
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -978,9 +977,9 @@ nav {
 
 .feature-list li:hover::before {
     transform: scale(1.1);
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
 }
 
-/* Pricing Button */
 .pricing-btn {
     width: 100%;
     text-align: center;
@@ -1019,7 +1018,6 @@ nav {
     box-shadow: 0 12px 25px rgba(245, 158, 11, 0.4);
 }
 
-/* Promo Banner */
 .promo-banner {
     text-align: center;
     margin-top: 50px;
@@ -1066,11 +1064,6 @@ nav {
     font-size: 1.5rem;
     color: var(--accent);
     animation: bounce 1s infinite;
-}
-
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
 }
 
 /* ==================== FORM SECTION ==================== */
@@ -1340,11 +1333,6 @@ footer::after {
     animation: slide 3s linear infinite;
 }
 
-@keyframes slide {
-    from { transform: translateX(-100%); }
-    to { transform: translateX(100%); }
-}
-
 .footer-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1498,6 +1486,10 @@ hr {
         font-size: 2.5rem;
     }
     
+    .current-price {
+        font-size: 2.7rem;
+    }
+    
     .original-price {
         font-size: 1.5rem;
     }
@@ -1641,6 +1633,10 @@ hr {
         font-size: 2.2rem;
         flex-direction: column;
         align-items: center;
+    }
+    
+    .current-price {
+        font-size: 2.4rem;
     }
     
     .original-price {
