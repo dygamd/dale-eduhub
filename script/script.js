@@ -1,21 +1,22 @@
-// ALERT 1: Ujian fail script berjaya dipanggil
-alert("Script Bermula!");
+// ALERT 1: Untuk pastikan fail dikesan
+alert("Menyambung ke DALe EduHub...");
 
 const SB_URL = 'https://ktfhmqvuhqlzhkotorsi.supabase.co';
-const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt0ZmhtcXZ1aHFsemhrb3RvcnNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyNTY3NTQsImV4cCI6MjA4ODgzMjc1NH0.yIqlOSSz_40EuFJV2DaLMIaD5Ou6A9ycMQMAxrMohyA';
+// Key yang telah dibersihkan
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt0ZmhtcXZ1aHFsemhrb3RvcnNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTE2OTI2MTAsImV4cCI6MjAyNzI2ODYxMH0.yIqlOSSz_40EuFJV2DaLMIaD5Ou6A9ycMQMAxrMohyA';
 
 let supabase;
 
 try {
     supabase = window.supabase.createClient(SB_URL, SB_KEY);
-    alert("Supabase Berjaya Diaktifkan!");
 } catch (e) {
-    alert("Gagal aktifkan Supabase: " + e.message);
+    alert("Ralat Pemula: " + e.message);
 }
 
-async function loadData() {
+async function loadTestimonials() {
     const wrapper = document.getElementById('testimoniWrapper');
     const loading = document.getElementById('testimoniLoading');
+    const swiperCont = document.getElementById('testimoniSwiper');
 
     try {
         const { data, error } = await supabase
@@ -24,7 +25,7 @@ async function loadData() {
             .eq('active', true);
 
         if (error) {
-            alert("Ralat Table: " + error.message);
+            alert("Ralat Supabase: " + error.message);
             return;
         }
 
@@ -34,48 +35,81 @@ async function loadData() {
                 html += `
                 <div class="swiper-slide">
                     <div class="testi-card">
-                        <p>"${t.message}"</p>
-                        <h4>${t.name}</h4>
-                        <small>${t.subject}</small>
+                        <div class="testi-text">"${t.message}"</div>
+                        <div class="testi-name">${t.name}</div>
+                        <div class="testi-subject">${t.subject}</div>
                     </div>
                 </div>`;
             });
-            wrapper.innerHTML = html;
             
+            wrapper.innerHTML = html;
             if (loading) loading.style.display = 'none';
-            document.getElementById('testimoniSwiper').style.display = 'block';
+            if (swiperCont) swiperCont.style.display = 'block';
 
+            // Mula Swiper
             new Swiper('.mySwiper', {
                 slidesPerView: 1,
-                spaceBetween: 10,
-                pagination: { el: '.swiper-pagination' },
-                breakpoints: { 768: { slidesPerView: 2 } }
+                spaceBetween: 20,
+                loop: true,
+                observer: true,
+                observeParents: true,
+                pagination: { el: '.swiper-pagination', clickable: true },
+                breakpoints: {
+                    768: { slidesPerView: 2 },
+                    1024: { slidesPerView: 3 }
+                }
             });
+            
             alert("Testimoni Berjaya Dimuatkan!");
         } else {
-            alert("Data kosong. Sila semak table testimonials di Supabase.");
+            alert("Sambungan OK, tetapi tiada data dalam table.");
             if (loading) loading.style.display = 'none';
         }
     } catch (err) {
-        alert("Ralat Proses: " + err.message);
+        alert("Ralat Sistem: " + err.message);
     }
 }
 
-// Logik Form WhatsApp
+// Borang WhatsApp
 const myForm = document.getElementById('whatsappForm');
 if (myForm) {
-    myForm.onsubmit = function(e) {
+    myForm.onsubmit = async function(e) {
         e.preventDefault();
-        const nama = document.getElementById('stuName').value;
-        const subjek = document.getElementById('stuSubject').value;
-        
-        const teks = `Halo Cikgu Dayang! Saya nak daftar:%0A%0A` +
-                     `Nama: ${nama}%0ASubjek: ${subjek}`;
-        
-        alert("Membuka WhatsApp...");
-        window.location.href = `https://wa.me/60128258869?text=${teks}`;
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.innerHTML = "Sila Tunggu...";
+
+        try {
+            const sName = document.getElementById('stuName').value;
+            const pName = document.getElementById('parentName').value;
+            const pPhone = document.getElementById('parentPhone').value;
+            const pEmail = document.getElementById('parentEmail').value;
+            const sLevel = document.getElementById('stuLevel').value;
+            const sSub = document.getElementById('stuSubject').value;
+            const cType = document.getElementById('classType').value;
+
+            // Simpan ke Database
+            const { error } = await supabase.from('students').insert([{
+                name: sName,
+                parent_name: pName,
+                parent_phone: pPhone,
+                parent_email: pEmail,
+                student_level: sLevel,
+                subject: sSub
+            }]);
+
+            if (error) throw error;
+
+            // Redirect ke WhatsApp
+            const msg = `*PENDAFTARAN DALE EDUHUB*%0A%0ANama: ${sName}%0ASubjek: ${sSub}%0AJenis: ${cType}`;
+            window.location.href = `https://wa.me/60128258869?text=${msg}`;
+
+        } catch (err) {
+            alert("Gagal daftar: " + err.message);
+            btn.disabled = false;
+            btn.innerHTML = "Hantar";
+        }
     };
 }
 
-// Jalankan loadData bila semua fail siap
-window.onload = loadData;
+window.onload = loadTestimonials;
