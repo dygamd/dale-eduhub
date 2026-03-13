@@ -24,6 +24,7 @@
 .page-hero h1 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
+    animation: fadeInUp 0.8s ease;
 }
 
 .page-hero p {
@@ -31,6 +32,7 @@
     opacity: 0.9;
     max-width: 600px;
     margin: 0 auto;
+    animation: fadeInUp 0.8s ease 0.2s both;
 }
 
 /* Section Spacing */
@@ -50,6 +52,16 @@
     gap: 40px;
     margin-bottom: 40px;
     border: 1px solid var(--gray-light);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.tutor-header-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-xl);
+}
+
+.tutor-avatar-wrapper {
+    position: relative;
 }
 
 .tutor-avatar {
@@ -59,6 +71,11 @@
     overflow: hidden;
     border: 4px solid var(--accent);
     box-shadow: var(--shadow-lg);
+    transition: transform 0.3s;
+}
+
+.tutor-avatar:hover {
+    transform: scale(1.05);
 }
 
 .tutor-avatar img {
@@ -67,10 +84,17 @@
     object-fit: cover;
 }
 
+.tutor-info-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .tutor-name {
     font-size: 2.5rem;
     color: var(--primary-dark);
     margin-bottom: 10px;
+    line-height: 1.2;
 }
 
 .tutor-tagline {
@@ -84,7 +108,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .tutor-badges .badge {
@@ -97,34 +121,141 @@
     align-items: center;
     gap: 8px;
     border: 1px solid var(--primary-light);
+    transition: all 0.3s;
+}
+
+.tutor-badges .badge:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
 }
 
 .tutor-badges .badge i {
     color: var(--accent);
 }
 
+.tutor-badges .badge:hover i {
+    color: white;
+}
+
+/* ==================== FOUNDER BADGE KHAS ==================== */
+.founder-badge {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
+    color: white !important;
+    border: none !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.founder-badge::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.founder-badge i {
+    color: white !important;
+    margin-right: 5px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+/* ==================== LANGUAGES SECTION ==================== */
+.languages-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 20px 0;
+    padding: 10px 0;
+}
+
+.language-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #eef2ff;
+    padding: 8px 18px;
+    border-radius: 50px;
+    color: var(--primary);
+    font-weight: 500;
+    border: 1px solid var(--primary-light);
+    transition: all 0.3s;
+    font-size: 0.95rem;
+}
+
+.language-item:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: var(--shadow);
+}
+
+.language-item i {
+    color: var(--accent);
+    font-size: 1.1rem;
+}
+
+.language-item:hover i {
+    color: white;
+}
+
+/* ==================== TUTOR STATS MINI ==================== */
 .tutor-stats-mini {
     display: flex;
     gap: 30px;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 .tutor-stats-mini .stat-item {
     text-align: center;
+    padding: 10px 15px;
+    background: #f8fafc;
+    border-radius: 20px;
+    transition: all 0.3s;
+}
+
+.tutor-stats-mini .stat-item:hover {
+    background: var(--primary-light);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+}
+
+.tutor-stats-mini .stat-item:hover .stat-number,
+.tutor-stats-mini .stat-item:hover .stat-label {
+    color: white;
 }
 
 .tutor-stats-mini .stat-number {
     font-size: 1.8rem;
     font-weight: 700;
     color: var(--primary-dark);
+    transition: color 0.3s;
 }
 
 .tutor-stats-mini .stat-label {
     font-size: 0.9rem;
     color: var(--gray);
+    transition: color 0.3s;
 }
 
-/* Content Cards */
+/* ==================== CONTENT CARDS ==================== */
 .content-card {
     background: white;
     border-radius: 30px;
@@ -132,12 +263,29 @@
     box-shadow: var(--shadow);
     margin-bottom: 30px;
     border: 1px solid var(--gray-light);
-    transition: transform 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
 }
 
 .content-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-lg);
+}
+
+.content-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 0;
+    background: linear-gradient(to bottom, var(--accent), var(--primary));
+    transition: height 0.3s;
+}
+
+.content-card:hover::after {
+    height: 100%;
 }
 
 .section-subtitle {
@@ -151,6 +299,7 @@
 
 .section-subtitle i {
     color: var(--accent);
+    font-size: 2rem;
 }
 
 .section-main-title {
@@ -171,7 +320,95 @@
     border-radius: 2px;
 }
 
-/* Timeline */
+/* ==================== FOUNDER CARD ==================== */
+.founder-card {
+    background: linear-gradient(135deg, #ffffff, #fff7e6);
+    border: 2px solid var(--accent);
+    position: relative;
+    overflow: hidden;
+    margin-top: 30px;
+}
+
+.founder-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.08) 0%, transparent 70%);
+    animation: rotateFounder 20s linear infinite;
+}
+
+@keyframes rotateFounder {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.founder-message {
+    position: relative;
+    z-index: 2;
+    padding: 20px 0;
+}
+
+.founder-quote-icon {
+    font-size: 3rem;
+    color: var(--accent);
+    opacity: 0.2;
+    margin-bottom: 10px;
+}
+
+.founder-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--dark);
+    margin-bottom: 20px;
+    padding-left: 20px;
+    border-left: 4px solid var(--accent);
+    font-style: italic;
+}
+
+.founder-text:last-of-type {
+    margin-bottom: 30px;
+}
+
+.founder-signature {
+    text-align: right;
+    padding: 20px;
+    background: rgba(245, 158, 11, 0.05);
+    border-radius: 20px;
+    margin-top: 20px;
+    border: 1px dashed var(--accent);
+}
+
+.founder-signature i {
+    color: var(--accent);
+    font-size: 1.5rem;
+    margin-right: 10px;
+    animation: penWiggle 2s infinite;
+}
+
+@keyframes penWiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+}
+
+.founder-signature span {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.founder-signature small {
+    font-size: 0.95rem;
+    color: var(--gray);
+    font-style: italic;
+}
+
+/* ==================== PROFESSIONAL TIMELINE ==================== */
 .professional-timeline {
     display: flex;
     flex-direction: column;
@@ -180,28 +417,37 @@
 
 .timeline-item {
     display: grid;
-    grid-template-columns: 50px 1fr;
+    grid-template-columns: 60px 1fr;
     gap: 20px;
     position: relative;
 }
 
 .timeline-icon {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     background: var(--primary-light);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s;
+    box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+}
+
+.timeline-item:hover .timeline-icon {
+    transform: scale(1.1);
+    background: var(--accent);
 }
 
 .timeline-item::before {
     content: '';
     position: absolute;
-    left: 24px;
-    top: 50px;
+    left: 29px;
+    top: 60px;
     bottom: -25px;
     width: 2px;
     background: linear-gradient(to bottom, var(--primary-light), transparent);
@@ -213,24 +459,58 @@
 
 .timeline-content {
     background: #f8fafc;
-    padding: 20px;
+    padding: 25px;
     border-radius: 20px;
     border: 1px solid var(--gray-light);
+    transition: all 0.3s;
+}
+
+.timeline-item:hover .timeline-content {
+    background: white;
+    border-color: var(--accent);
+    transform: translateX(5px);
+    box-shadow: var(--shadow);
 }
 
 .timeline-content h3 {
     color: var(--primary-dark);
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     font-size: 1.3rem;
 }
 
 .timeline-place {
     color: var(--accent);
     font-weight: 600;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
-/* Philosophy Card */
+.timeline-place::before {
+    content: '📍';
+    font-size: 0.9rem;
+}
+
+.timeline-content p {
+    color: var(--gray);
+    line-height: 1.6;
+}
+
+/* Timeline Founder Khas */
+.timeline-icon[style*="background: gold"] {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+    50% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.8); }
+}
+
+/* ==================== PHILOSOPHY CARD ==================== */
 .philosophy-card {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     color: white;
@@ -240,22 +520,49 @@
     color: white;
 }
 
+.philosophy-card .section-subtitle i {
+    color: var(--accent);
+}
+
+.philosophy-card::after {
+    background: linear-gradient(to bottom, white, var(--accent));
+}
+
 .tutor-quote {
     font-size: 1.3rem;
     line-height: 1.8;
     font-style: italic;
     margin: 30px 0 20px;
-    padding: 0 20px;
+    padding: 20px 30px;
     border-left: 4px solid var(--accent);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    position: relative;
+}
+
+.tutor-quote::before {
+    content: '"';
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    font-size: 4rem;
+    color: rgba(255, 255, 255, 0.1);
+    font-family: serif;
 }
 
 .quote-author {
     text-align: right;
     font-weight: 600;
     opacity: 0.9;
+    font-size: 1.1rem;
+    padding-right: 20px;
 }
 
-/* Methodology Grid */
+.quote-author::before {
+    content: '— ';
+}
+
+/* ==================== METHODOLOGY GRID ==================== */
 .methodology-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -270,12 +577,30 @@
     box-shadow: var(--shadow);
     border: 1px solid var(--gray-light);
     transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
 }
 
 .methodology-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-8px) scale(1.02);
     box-shadow: var(--shadow-lg);
     border-color: var(--accent);
+}
+
+.methodology-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+}
+
+.methodology-card:hover::before {
+    transform: translateX(0);
 }
 
 .method-icon-wrapper {
@@ -294,7 +619,7 @@
 }
 
 .methodology-card:hover .method-icon-wrapper {
-    transform: rotate(0deg);
+    transform: rotate(0deg) scale(1.1);
 }
 
 .methodology-card h3 {
@@ -303,25 +628,38 @@
     margin-bottom: 15px;
 }
 
+.methodology-card p {
+    color: var(--gray);
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
 .method-features {
     list-style: none;
     margin-top: 20px;
 }
 
 .method-features li {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     color: var(--gray);
     display: flex;
     align-items: center;
     gap: 10px;
     font-size: 0.95rem;
+    transition: transform 0.3s;
+}
+
+.method-features li:hover {
+    transform: translateX(5px);
+    color: var(--primary);
 }
 
 .method-features li i {
     color: var(--accent);
+    font-size: 1rem;
 }
 
-/* Subjects Grid */
+/* ==================== SUBJECTS GRID ==================== */
 .subjects-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -344,10 +682,21 @@
 .subject-chip:hover {
     background: var(--primary);
     color: white;
-    transform: translateX(5px);
+    transform: translateX(5px) scale(1.02);
+    box-shadow: var(--shadow);
 }
 
-/* Achievement Card */
+.subject-chip i {
+    font-size: 1.2rem;
+    color: var(--accent);
+    transition: color 0.3s;
+}
+
+.subject-chip:hover i {
+    color: white;
+}
+
+/* ==================== ACHIEVEMENT CARD ==================== */
 .achievement-card {
     background: linear-gradient(135deg, #fef3c7, #fde68a);
     border: 2px solid var(--accent);
@@ -365,17 +714,34 @@
     border-radius: 50px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     font-weight: 700;
     color: var(--primary-dark);
     border: 2px solid var(--accent);
+    transition: all 0.3s;
+    flex: 1;
+    justify-content: center;
+}
+
+.achievement:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: var(--shadow);
+    background: var(--accent);
+    color: white;
 }
 
 .achievement i {
     color: gold;
+    font-size: 1.3rem;
+    transition: transform 0.3s;
 }
 
-/* CTA Section */
+.achievement:hover i {
+    transform: rotate(360deg);
+    color: white;
+}
+
+/* ==================== CTA SECTION ==================== */
 .cta-section {
     text-align: center;
     margin-top: 60px;
@@ -384,19 +750,59 @@
     border-radius: 50px;
     box-shadow: var(--shadow-lg);
     border: 2px solid var(--accent);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.05) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+}
+
+.cta-section .btn {
+    position: relative;
+    z-index: 2;
+    font-size: 1.2rem;
+    padding: 18px 45px;
 }
 
 .cta-note {
     margin-top: 15px;
     color: var(--gray);
     font-size: 0.95rem;
+    position: relative;
+    z-index: 2;
 }
 
-/* Responsive */
+/* ==================== ANIMATIONS ==================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
 @media (max-width: 1024px) {
     .tutor-header-card {
         grid-template-columns: 1fr;
         text-align: center;
+        gap: 30px;
     }
 
     .tutor-avatar {
@@ -404,20 +810,58 @@
     }
 
     .tutor-badges,
+    .languages-section,
     .tutor-stats-mini {
         justify-content: center;
+    }
+
+    .section-main-title {
+        font-size: 2rem;
     }
 }
 
 @media (max-width: 768px) {
-    .methodology-grid,
-    .subjects-grid {
-        grid-template-columns: 1fr;
+    .page-hero h1 {
+        font-size: 2rem;
+    }
+
+    .page-hero p {
+        font-size: 1rem;
+    }
+
+    .tutor-name {
+        font-size: 2rem;
+    }
+
+    .tutor-tagline {
+        font-size: 1.1rem;
     }
 
     .tutor-stats-mini {
         flex-direction: column;
         gap: 15px;
+        align-items: center;
+    }
+
+    .tutor-stats-mini .stat-item {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .methodology-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .subjects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .achievement-badges {
+        flex-direction: column;
+    }
+
+    .achievement {
+        width: 100%;
     }
 
     .timeline-item {
@@ -433,12 +877,124 @@
         margin: 0 auto;
     }
 
-    .achievement-badges {
-        flex-direction: column;
+    .timeline-content {
+        text-align: left;
+    }
+
+    .content-card {
+        padding: 30px 20px;
+    }
+
+    .section-subtitle {
+        font-size: 1.5rem;
+    }
+
+    .tutor-quote {
+        font-size: 1.1rem;
+        padding: 15px 20px;
+    }
+
+    .founder-text {
+        font-size: 1rem;
+        padding-left: 15px;
+    }
+
+    .founder-signature span {
+        font-size: 1.1rem;
+    }
+
+    .cta-section {
+        padding: 30px 20px;
+    }
+
+    .cta-section .btn {
+        font-size: 1rem;
+        padding: 15px 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tutor-name {
+        font-size: 1.6rem;
+    }
+
+    .tutor-badges .badge {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .language-item {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .section-subtitle {
+        font-size: 1.3rem;
+    }
+
+    .section-main-title {
+        font-size: 1.5rem;
+    }
+
+    .method-icon-wrapper {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+
+    .methodology-card h3 {
+        font-size: 1.3rem;
+    }
+
+    .timeline-content {
+        padding: 20px 15px;
+    }
+
+    .timeline-content h3 {
+        font-size: 1.1rem;
+    }
+
+    .tutor-quote {
+        font-size: 1rem;
+        padding: 15px;
+    }
+
+    .founder-quote-icon {
+        font-size: 2rem;
+    }
+
+    .founder-signature {
+        padding: 15px;
+    }
+
+    .founder-signature span {
+        font-size: 1rem;
     }
 
     .achievement {
-        width: 100%;
-        justify-content: center;
+        padding: 12px 20px;
+        font-size: 0.95rem;
+    }
+}
+
+/* ==================== PRINT STYLES ==================== */
+@media print {
+    .page-hero,
+    .cta-section,
+    .btn {
+        background: none;
+        color: black;
+        border: 1px solid #ccc;
+    }
+
+    .tutor-header-card,
+    .content-card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+
+    .no-print {
+        display: none;
     }
 }
