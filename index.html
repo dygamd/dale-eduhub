@@ -4,13 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DALe EduHub | Dream • Act • Learn</title>
+    
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/logo.png">
+    
+    <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
 
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Navigation -->
     <header>
         <nav>
             <a href="index.html" class="logo">
@@ -21,7 +31,8 @@
                 </div>
             </a>
             <div class="nav-links">
-                <a href="index.html">Utama</a>
+                <a href="index.html" class="active">Utama</a>
+                <a href="tutor-profile.html">Profil Tutor</a>
                 <a href="#program">Yuran</a>
                 <a href="#daftar" class="btn-small">Daftar</a>
             </div>
@@ -29,16 +40,19 @@
         </nav>
     </header>
 
+    <!-- HERO SECTION -->
     <section id="home" class="hero">
         <div class="container">
             <h2>Membina Masa Depan <br><span style="color: var(--accent)">Melalui Inovasi Digital</span></h2>
             <p>Peneraju pendidikan dalam talian dengan integrasi Industry-Linked Learning untuk melahirkan generasi yang relevan dengan keperluan industri global.</p>
             <div class="hero-btns">
                 <a href="#daftar" class="btn">Daftar Sekarang</a>
+                <a href="tutor-profile.html" class="btn btn-outline-light">Kenali Tutor</a>
             </div>
         </div>
     </section>
 
+    <!-- MENGAPA PILIH KAMI SECTION -->
     <section class="section">
         <div class="container">
             <div class="section-title">
@@ -49,32 +63,38 @@
                 <div class="feature-card">
                     <div class="feature-icon">🎯</div>
                     <h3>Industry-Linked Learning</h3>
-                    <p>Setiap topik dikaitkan dengan aplikasi dunia pekerjaan sebenar.</p>
+                    <p>Setiap topik dikaitkan dengan aplikasi dunia pekerjaan sebenar. Bukan sekadar teori, tapi relevan dengan kerjaya masa depan.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">👩‍🏫</div>
                     <h3>Pakar Industri</h3>
-                    <p>Dibimbing oleh bekas Software Engineer yang memahami keperluan pasaran kerja.</p>
+                    <p>Dibimbing oleh bekas Software Engineer (AI) yang memahami keperluan pasaran kerja dan teknologi terkini.</p>
+                    <a href="tutor-profile.html" class="feature-link">Kenali Tutor →</a>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">📱</div>
                     <h3>Fleksibel & Moden</h3>
-                    <p>Ekosistem pembelajaran digital menggunakan Google Meet & Classroom.</p>
+                    <p>Ekosistem pembelajaran digital menggunakan Google Meet & Classroom. Belajar dari mana-mana, pada bila-bila masa.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="testimoni" class="section testimonials-section" style="background: #f8fafc;">
+    <!-- APA KATA MEREKA (TESTIMONI) SECTION -->
+    <section id="testimoni" class="section testimonials-section">
         <div class="container">
             <div class="section-title">
                 <h2>Apa Kata Mereka?</h2>
                 <p>Maklum balas ikhlas daripada pelajar dan ibu bapa</p>
             </div>
+            
+            <!-- Loading -->
             <div id="testimoniLoading" class="loading-container">
                 <div class="spinner"></div>
                 <p>Memuatkan testimoni...</p>
             </div>
+            
+            <!-- Swiper Carousel -->
             <div class="swiper mySwiper" id="testimoniSwiper" style="display: none;">
                 <div class="swiper-wrapper" id="testimoniWrapper"></div>
                 <div class="swiper-pagination"></div>
@@ -82,6 +102,7 @@
         </div>
     </section>
 
+    <!-- PROGRAM & YURAN SECTION -->
     <section id="program" class="section">
         <div class="container">
             <div class="section-title">
@@ -89,73 +110,107 @@
                 <p>Pilih program yang sesuai dengan keperluan anda</p>
             </div>
             <div class="pricing-grid">
+                <!-- Kelas Percubaan -->
                 <div class="pricing-card">
                     <h3>Kelas Percubaan</h3>
-                    <div class="price">RM25 <span style="font-size: 1rem;">/sesi</span></div>
+                    <div class="price">RM25 <span class="price-period">/sesi</span></div>
                     <ul class="feature-list">
-                        <li>30 minit/sesi</li>
-                        <li>Semua subjek</li>
+                        <li>30 minit sesi percubaan</li>
+                        <li>Semua subjek tersedia</li>
                         <li>Analisis tahap pelajar</li>
+                        <li>Konsultasi bersama tutor</li>
                     </ul>
                     <a href="#daftar" class="btn btn-outline pricing-btn">Pilih Trial</a>
                 </div>
+
+                <!-- Menengah Rendah -->
                 <div class="pricing-card highlighted">
+                    <div class="popular-badge">Paling Popular</div>
                     <h3>Menengah Rendah</h3>
                     <p class="level-tag">Tingkatan 1 - 3</p>
-                    <div class="price">RM200 <span style="font-size: 1rem;">/subjek</span></div>
+                    <div class="price">RM200 <span class="price-period">/subjek</span></div>
                     <div class="subject-tags">
                         <span class="subject-tag">Matematik</span>
-                        <span class="subject-tag">ASK</span>
-                        <span class="subject-tag">Jepun</span>
+                        <span class="subject-tag">Asas Sains Komputer</span>
+                        <span class="subject-tag">Bahasa Jepun</span>
                     </div>
+                    <ul class="feature-list">
+                        <li>4 kelas sebulan (1 jam/sesi)</li>
+                        <li>Modul pembelajaran disediakan</li>
+                        <li>Penilaian bulanan</li>
+                        <li>Laporan perkembangan</li>
+                    </ul>
                     <a href="#daftar" class="btn pricing-btn">Daftar Sekarang</a>
                 </div>
-                <div class="pricing-card highlighted">
+
+                <!-- Menengah Atas -->
+                <div class="pricing-card">
                     <h3>Menengah Atas</h3>
                     <p class="level-tag">Tingkatan 4 - 5</p>
-                    <div class="price">RM220 <span style="font-size: 1rem;">/subjek</span></div>
+                    <div class="price">RM220 <span class="price-period">/subjek</span></div>
                     <div class="subject-tags">
                         <span class="subject-tag">Matematik</span>
                         <span class="subject-tag">Sains Komputer</span>
-                        <span class="subject-tag">Jepun</span>
+                        <span class="subject-tag">Bahasa Jepun</span>
                     </div>
-                    <a href="#daftar" class="btn pricing-btn">Daftar Sekarang</a>
+                    <ul class="feature-list">
+                        <li>4 kelas sebulan (1 jam/sesi)</li>
+                        <li>Fokus persediaan SPM</li>
+                        <li>Modul & soalan KBAT</li>
+                        <li>Pengenalan kerjaya industri</li>
+                    </ul>
+                    <a href="#daftar" class="btn btn-outline pricing-btn">Daftar Sekarang</a>
                 </div>
+            </div>
+            
+            <div class="promo-banner">
+                <p><i class="fas fa-gift"></i> Promosi Istimewa: Diskaun 10% untuk pendaftaran sebelum 31 Mac 2026!</p>
             </div>
         </div>
     </section>
 
-    <section id="daftar" class="section form-section" style="background: #f1f5f9;">
+    <!-- DAFTAR SECTION -->
+    <section id="daftar" class="section form-section">
         <div class="container">
             <div class="form-container">
                 <div class="section-title">
-                    <h2>Daftar DALe EduHub</h2>
-                    <p>Lengkapi borang dan kami akan WhatsApp anda segera.</p>
+                    <h2>Daftar Sekarang</h2>
+                    <p>Lengkapi borang di bawah, kami akan menghubungi anda melalui WhatsApp</p>
                 </div>
+                
+                <!-- Form Loading -->
+                <div id="formLoading" class="loading-container" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Memproses pendaftaran...</p>
+                </div>
+                
                 <form id="whatsappForm">
                     <div class="form-group">
                         <label>Nama Ibu/Bapa Penjaga</label>
-                        <input type="text" id="parentName" placeholder="Masukkan nama" required>
+                        <input type="text" id="parentName" placeholder="Masukkan nama ibu/bapa">
                     </div>
+
                     <div class="form-group">
-                        <label>Nama Penuh Pelajar *</label>
+                        <label>Nama Penuh Pelajar <span class="required-badge">*</span></label>
                         <input type="text" id="stuName" placeholder="Masukkan nama pelajar" required>
                     </div>
+
                     <div class="form-row">
                         <div class="form-group">
-                            <label>No. Telefon *</label>
-                            <input type="tel" id="parentPhone" placeholder="0123456789" required>
+                            <label>No. Telefon <span class="required-badge">*</span></label>
+                            <input type="tel" id="parentPhone" placeholder="012-345 6789" required>
                         </div>
                         <div class="form-group">
-                            <label>Emel *</label>
-                            <input type="email" id="parentEmail" placeholder="email@gmail.com" required>
+                            <label>Emel <span class="required-badge">*</span></label>
+                            <input type="email" id="parentEmail" placeholder="contoh@email.com" required>
                         </div>
                     </div>
+
                     <div class="form-row">
                         <div class="form-group">
-                            <label>Tingkatan *</label>
+                            <label>Tingkatan <span class="required-badge">*</span></label>
                             <select id="stuLevel" required>
-                                <option value="">Pilih</option>
+                                <option value="">Sila Pilih</option>
                                 <option value="Tingkatan 1">Tingkatan 1</option>
                                 <option value="Tingkatan 2">Tingkatan 2</option>
                                 <option value="Tingkatan 3">Tingkatan 3</option>
@@ -164,15 +219,31 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Subjek *</label>
-                            <select id="stuSubject" required>
-                                <option value="">Pilih Subjek</option>
-                                <option value="Matematik">Matematik</option>
-                                <option value="Sains Komputer">Sains Komputer</option>
-                                <option value="Bahasa Jepun">Bahasa Jepun</option>
+                            <label>Jenis Kelas <span class="required-badge">*</span></label>
+                            <select id="classType" required>
+                                <option value="">Sila Pilih</option>
+                                <option value="Kelas Sebenar">Kelas Sebenar</option>
+                                <option value="Kelas Percubaan">Kelas Percubaan</option>
                             </select>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label>Subjek <span class="required-badge">*</span></label>
+                        <select id="stuSubject" required>
+                            <option value="">Sila Pilih Subjek</option>
+                            <option value="Matematik">Matematik</option>
+                            <option value="Asas Sains Komputer">Asas Sains Komputer</option>
+                            <option value="Sains Komputer">Sains Komputer</option>
+                            <option value="Bahasa Jepun">Bahasa Jepun</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Catatan (Keputusan/Target)</label>
+                        <textarea id="stuMsg" rows="3" placeholder="Contoh: Dapat B dalam Matematik, target A untuk SPM..."></textarea>
+                    </div>
+
                     <button type="submit" class="btn submit-btn" id="submitBtn">
                         <i class="fab fa-whatsapp"></i> Hantar ke WhatsApp
                     </button>
@@ -181,10 +252,39 @@
         </div>
     </section>
 
+    <!-- FOOTER -->
     <footer>
-        <p>&copy; 2026 DALe EduHub. Dream • Act • Learn</p>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <img src="images/logo.png" alt="DALe EduHub" class="footer-logo">
+                <p>Pusat kecemerlangan akademik digital yang memfokuskan kepada pembangunan potensi pelajar melalui teknologi dan disiplin.</p>
+                <div class="footer-slogan">Dream • Act • Learn</div>
+            </div>
+            <div class="footer-col">
+                <h4>Pautan Pantas</h4>
+                <ul>
+                    <li><a href="index.html">Utama</a></li>
+                    <li><a href="tutor-profile.html">Profil Tutor</a></li>
+                    <li><a href="#program">Program & Yuran</a></li>
+                    <li><a href="#daftar">Daftar Kelas</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Hubungi Kami</h4>
+                <p><i class="fas fa-envelope"></i> dygamd.work@gmail.com</p>
+                <p><i class="fab fa-whatsapp"></i> +6012-825 8869</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">&copy; 2026 DALe EduHub. Semua Hak Terpelihara.</p>
     </footer>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.7/dist/umd/supabase.js"></script>
     <script src="script/script.js"></script>
