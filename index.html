@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>DALe EduHub | Teraju Pendidikan Digital Bersepadu</title>
     
+    <!-- Favicon / Icon (Tambah logo pada head) -->
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="apple-touch-icon" href="images/logo.png">
+    
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <!-- Font Awesome -->
@@ -32,7 +36,6 @@
             <div class="nav-links">
                 <a href="#" onclick="showPage('home')" id="nav-home" class="active">Utama</a>
                 <a href="#" onclick="showPage('program')" id="nav-program">Yuran</a>
-                <a href="#" onclick="showPage('testimoni')" id="nav-testimoni">Testimoni</a>
                 <a href="#" onclick="showPage('tutor')" id="nav-tutor">Tutor</a>
                 <a href="#" onclick="showPage('daftar')" class="btn-small">Daftar</a>
             </div>
@@ -73,8 +76,27 @@
                         <p>Kelas online melalui Google Meet, modul di Google Classroom.</p>
                     </div>
                 </div>
-                <div style="text-align: center; margin-top: 40px;">
-                    <a href="#" onclick="showPage('tutor')" class="btn btn-outline">Kenali Tutor Kami</a>
+            </div>
+        </section>
+
+        <!-- TESTIMONI SECTION (Dipindah ke Home Page) -->
+        <section class="section" style="background: #f1f5f9;">
+            <div class="container">
+                <div class="section-title">
+                    <h3>Apa Kata Mereka?</h3>
+                    <p>Maklum balas ikhlas daripada pelajar dan ibu bapa</p>
+                </div>
+                
+                <!-- Loading indicator -->
+                <div id="testimoniLoading" class="loading-container">
+                    <div class="spinner"></div>
+                    <p>Memuatkan testimoni...</p>
+                </div>
+                
+                <!-- Swiper Carousel -->
+                <div class="swiper mySwiper" id="testimoniSwiper" style="display: none;">
+                    <div class="swiper-wrapper" id="testimoniWrapper"></div>
+                    <div class="swiper-pagination"></div>
                 </div>
             </div>
         </section>
@@ -148,30 +170,6 @@
                 
                 <div class="promo-banner">
                     <p>🎉 PROMOSI TERHAD: Diskaun 10% untuk semua pakej!</p>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- TESTIMONI PAGE -->
-    <div id="testimoni-page" class="page">
-        <section class="section" style="padding-top: 100px;">
-            <div class="container">
-                <div class="section-title">
-                    <h3>Apa Kata Mereka?</h3>
-                    <p>Maklum balas ikhlas daripada pelajar dan ibu bapa</p>
-                </div>
-                
-                <!-- Loading indicator -->
-                <div id="testimoniLoading" class="loading-container">
-                    <div class="spinner"></div>
-                    <p>Memuatkan testimoni...</p>
-                </div>
-                
-                <!-- Swiper Carousel -->
-                <div class="swiper mySwiper" id="testimoniSwiper" style="display: none;">
-                    <div class="swiper-wrapper" id="testimoniWrapper"></div>
-                    <div class="swiper-pagination"></div>
                 </div>
             </div>
         </section>
@@ -367,7 +365,6 @@
                 <ul>
                     <li><a href="#" onclick="showPage('home')">Utama</a></li>
                     <li><a href="#" onclick="showPage('program')">Yuran</a></li>
-                    <li><a href="#" onclick="showPage('testimoni')">Testimoni</a></li>
                     <li><a href="#" onclick="showPage('tutor')">Tutor</a></li>
                     <li><a href="#" onclick="showPage('daftar')">Daftar</a></li>
                 </ul>
