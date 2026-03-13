@@ -1,52 +1,64 @@
-// ==================== SUPABASE INITIALIZATION (SEKALI SAHAJA) ====================
+// ==================== SUPABASE CONFIG ====================
 const SUPABASE_URL = 'https://ktfhmqvuhqlzhkotorsi.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_kOz2lNp6289X7bajR5qmTw_Q1_Vh1zf';
+const SUPABASE_KEY = 'sb_publishable_kOz2lNp6289X7bajR5qmTw_Q1_Vh1zf';
 
-// Initialize hanya SEKALI di global scope
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+console.log('🔧 Initializing Supabase with:');
+console.log('URL:', SUPABASE_URL);
+console.log('Key:', SUPABASE_KEY.substring(0, 15) + '...');
+
+// ✅ Cara BETUL - dengan headers yang tepat
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
     global: {
         headers: {
-            'Access-Control-Allow-Origin': '*'
+            'apikey': SUPABASE_KEY,
+            'Authorization': `Bearer ${SUPABASE_KEY}`
         }
     }
 });
 
 // ==================== LOAD TESTIMONIALS ====================
 async function loadTestimonials() {
-    console.log('🔄 Mencuba dapatkan testimoni dari Supabase...');
+    console.log('🔄 Loading testimonials...');
     
     const loading = document.getElementById('testimoniLoading');
     const container = document.getElementById('testimoniContainer');
     
-    if (!container) return;
+    if (!container) {
+        console.error('Container not found!');
+        return;
+    }
     
     try {
-        // Cuba dapatkan dari Supabase
+        // Test query dengan headers yang betul
+        console.log('📡 Sending request to Supabase...');
+        
         const { data, error } = await supabase
             .from('testimonials')
-            .select('name, subject, message')
-            .eq('active', true)
-            .order('id', { ascending: false });
+            .select('*')
+            .eq('active', true);
 
         if (error) {
             console.error('❌ Supabase error:', error);
-            throw error;
+            console.log('Error details:', JSON.stringify(error, null, 2));
+            useFallbackTestimonials();
+            return;
         }
 
+        console.log('✅ Supabase response:', data);
+        
         if (data && data.length > 0) {
-            console.log(`✅ Berjaya dapatkan ${data.length} testimoni`);
             displayTestimonials(data);
         } else {
-            console.log('⚠️ Tiada data dalam Supabase');
+            console.log('No data found, using fallback');
             useFallbackTestimonials();
         }
     } catch (err) {
-        console.error('❌ Gagal connect Supabase:', err);
+        console.error('❌ Exception:', err);
         useFallbackTestimonials();
     }
 }
 
-// ==================== PAPAR TESTIMONI ====================
+// ==================== DISPLAY ====================
 function displayTestimonials(testimonials) {
     const container = document.getElementById('testimoniContainer');
     const loading = document.getElementById('testimoniLoading');
@@ -60,33 +72,32 @@ function displayTestimonials(testimonials) {
     `).join('');
     
     loading.style.display = 'none';
+    console.log('✅ Testimonials displayed');
 }
 
-// ==================== FALLBACK (jika Supabase gagal) ====================
+// ==================== FALLBACK ====================
 function useFallbackTestimonials() {
     const dummyData = [
         {
             name: "Cik Syuhada",
             subject: "Matematik (Menengah Atas)",
-            message: "Kelas dengan cikgu Dayang sangat okay. Cikgu tak berat mulut untuk ulang semula kalau saya tak faham."
+            message: "Kelas dengan cikgu Dayang sangat okay."
         },
         {
             name: "Encik Azimy",
             subject: "Sains Komputer",
-            message: "Anak saya okay dan faham dengan kelas cikgu Dayang."
+            message: "Anak saya okay dan faham."
         },
         {
             name: "Puan Basyirah",
             subject: "Matematik (Menengah Rendah)",
-            message: "Terima kasih cikgu Dayang kerana sangat sabar."
+            message: "Terima kasih cikgu Dayang."
         }
     ];
-    
-    console.log('📦 Guna data dummy (fallback)');
     displayTestimonials(dummyData);
 }
 
-// ==================== WHATSAPP FORM ====================
+// ==================== WHATSAPP ====================
 document.getElementById('whatsappForm')?.addEventListener('submit', async function(e) {
     e.preventDefault();
     
@@ -94,27 +105,23 @@ document.getElementById('whatsappForm')?.addEventListener('submit', async functi
     const phone = document.getElementById('phone').value;
     
     if (!name || !phone) {
-        alert('Sila isi Nama dan No Telefon');
+        alert('Sila isi semua');
         return;
     }
     
     try {
-        // Cuba simpan ke Supabase
-        const { error } = await supabase
-            .from('students')
-            .insert([{ name, parent_phone: phone }]);
-            
-        if (error) console.error('Gagal simpan ke Supabase:', error);
+        await supabase.from('students').insert([{
+            name: name,
+            parent_phone: phone
+        }]);
+        console.log('✅ Saved to Supabase');
     } catch (err) {
-        console.error('Error saving:', err);
+        console.error('❌ Error saving:', err);
     }
     
-    // Buka WhatsApp
-    const waText = `Salam Cikgu Dayang, saya ${name} ingin mendaftar. No telefon: ${phone}`;
+    const waText = `Salam Cikgu Dayang, saya ${name}. No telefon: ${phone}`;
     window.open(`https://wa.me/60128258869?text=${encodeURIComponent(waText)}`, '_blank');
-    
     alert('Pendaftaran dihantar!');
-    this.reset();
 });
 
 // ==================== INIT ====================
