@@ -1,0 +1,561 @@
+/* ==================== TUTOR PROFILE PAGE STYLES ==================== */
+/* Ini adalah CSS khusus untuk halaman tutor-profile.html sahaja */
+
+/* Page Hero */
+.page-hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 120px 1rem 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.page-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background: var(--light);
+    transform: skewY(-1deg);
+}
+
+.page-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    animation: fadeInUp 0.8s ease;
+}
+
+.page-hero p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+    animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+/* Section Spacing */
+.tutor-profile-section {
+    padding-top: 40px;
+    padding-bottom: 80px;
+}
+
+/* Tutor Header Card */
+.tutor-header-card {
+    background: white;
+    border-radius: 40px;
+    padding: 40px;
+    box-shadow: var(--shadow-lg);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 2;
+    border: 1px solid var(--gray-light);
+}
+
+.tutor-avatar-wrapper {
+    position: relative;
+}
+
+.tutor-avatar {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid var(--accent);
+    box-shadow: var(--shadow-lg);
+    transition: transform 0.3s;
+}
+
+.tutor-avatar:hover {
+    transform: scale(1.02);
+}
+
+.tutor-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.tutor-info-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.tutor-name {
+    font-size: 2.5rem;
+    color: var(--primary-dark);
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.tutor-tagline {
+    font-size: 1.3rem;
+    color: var(--accent);
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.tutor-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.tutor-badges .badge {
+    background: #eef2ff;
+    color: var(--primary);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--primary-light);
+}
+
+.tutor-badges .badge i {
+    color: var(--accent);
+}
+
+.tutor-stats-mini {
+    display: flex;
+    gap: 30px;
+    margin-top: 10px;
+}
+
+.tutor-stats-mini .stat-item {
+    text-align: center;
+}
+
+.tutor-stats-mini .stat-number {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+
+.tutor-stats-mini .stat-label {
+    font-size: 0.9rem;
+    color: var(--gray);
+}
+
+/* Content Cards */
+.content-card {
+    background: white;
+    border-radius: 30px;
+    padding: 40px;
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+    border: 1px solid var(--gray-light);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.content-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.section-subtitle {
+    font-size: 1.8rem;
+    color: var(--primary-dark);
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-subtitle i {
+    color: var(--accent);
+}
+
+.section-main-title {
+    font-size: 2.2rem;
+    color: var(--primary-dark);
+    text-align: center;
+    margin: 60px 0 40px;
+    position: relative;
+}
+
+.section-main-title::after {
+    content: '';
+    width: 100px;
+    height: 4px;
+    background: var(--accent);
+    display: block;
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+
+/* Professional Timeline */
+.professional-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.timeline-item {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    gap: 20px;
+    position: relative;
+}
+
+.timeline-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--primary-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 24px;
+    top: 50px;
+    bottom: -25px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--primary-light), transparent);
+}
+
+.timeline-item:last-child::before {
+    display: none;
+}
+
+.timeline-content {
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 20px;
+    border: 1px solid var(--gray-light);
+}
+
+.timeline-content h3 {
+    color: var(--primary-dark);
+    margin-bottom: 5px;
+    font-size: 1.3rem;
+}
+
+.timeline-place {
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+}
+
+.timeline-content p {
+    color: var(--gray);
+    line-height: 1.6;
+}
+
+/* Philosophy Card */
+.philosophy-card {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+}
+
+.philosophy-card .section-subtitle {
+    color: white;
+}
+
+.philosophy-card .section-subtitle i {
+    color: var(--accent);
+}
+
+.tutor-quote {
+    font-size: 1.3rem;
+    line-height: 1.8;
+    font-style: italic;
+    margin: 30px 0 20px;
+    padding: 0 20px;
+    border-left: 4px solid var(--accent);
+}
+
+.quote-author {
+    text-align: right;
+    font-weight: 600;
+    opacity: 0.9;
+}
+
+/* Methodology Grid */
+.methodology-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin: 40px 0;
+}
+
+.methodology-card {
+    background: white;
+    border-radius: 30px;
+    padding: 35px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--gray-light);
+    transition: all 0.3s;
+}
+
+.methodology-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent);
+}
+
+.method-icon-wrapper {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--primary-light), var(--primary));
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    color: white;
+    font-size: 2rem;
+    transform: rotate(-5deg);
+    transition: transform 0.3s;
+}
+
+.methodology-card:hover .method-icon-wrapper {
+    transform: rotate(0deg);
+}
+
+.methodology-card h3 {
+    font-size: 1.5rem;
+    color: var(--primary-dark);
+    margin-bottom: 15px;
+}
+
+.methodology-card p {
+    color: var(--gray);
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.method-features {
+    list-style: none;
+}
+
+.method-features li {
+    margin-bottom: 10px;
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+}
+
+.method-features li i {
+    color: var(--accent);
+}
+
+/* Subjects Grid */
+.subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.subject-chip {
+    background: #eef2ff;
+    padding: 15px 20px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--primary);
+    font-weight: 600;
+    border: 1px solid var(--primary-light);
+    transition: all 0.3s;
+}
+
+.subject-chip:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateX(5px);
+}
+
+.subject-chip i {
+    font-size: 1.2rem;
+}
+
+/* Achievement Card */
+.achievement-card {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border: 2px solid var(--accent);
+}
+
+.achievement-badges {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.achievement {
+    background: white;
+    padding: 15px 30px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    color: var(--primary-dark);
+    border: 2px solid var(--accent);
+}
+
+.achievement i {
+    color: gold;
+}
+
+/* CTA Section */
+.cta-section {
+    text-align: center;
+    margin-top: 60px;
+    padding: 40px;
+    background: white;
+    border-radius: 50px;
+    box-shadow: var(--shadow-lg);
+    border: 2px solid var(--accent);
+}
+
+.cta-note {
+    margin-top: 15px;
+    color: var(--gray);
+    font-size: 0.95rem;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .tutor-header-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .tutor-avatar {
+        margin: 0 auto;
+    }
+
+    .tutor-badges {
+        justify-content: center;
+    }
+
+    .tutor-stats-mini {
+        justify-content: center;
+    }
+
+    .methodology-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-hero h1 {
+        font-size: 2rem;
+    }
+
+    .page-hero p {
+        font-size: 1rem;
+    }
+
+    .tutor-name {
+        font-size: 2rem;
+    }
+
+    .tutor-tagline {
+        font-size: 1.1rem;
+    }
+
+    .tutor-stats-mini {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .section-main-title {
+        font-size: 1.8rem;
+    }
+
+    .subjects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .timeline-item {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .timeline-item::before {
+        display: none;
+    }
+
+    .timeline-icon {
+        margin: 0 auto;
+    }
+
+    .content-card {
+        padding: 25px;
+    }
+
+    .methodology-card {
+        padding: 25px;
+    }
+
+    .achievement-badges {
+        flex-direction: column;
+    }
+
+    .achievement {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .tutor-name {
+        font-size: 1.6rem;
+    }
+
+    .tutor-badges .badge {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .section-subtitle {
+        font-size: 1.5rem;
+    }
+
+    .tutor-quote {
+        font-size: 1.1rem;
+        padding: 0 10px;
+    }
+
+    .method-icon-wrapper {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+}
