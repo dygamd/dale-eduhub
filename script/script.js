@@ -1,42 +1,60 @@
-// ALERT 1: Pengesahan fail berjalan
-alert("Menyambung ke DALe EduHub...");
-
+// ==================== KONFIGURASI SUPABASE ====================
 const SB_URL = 'https://ktfhmqvuhqlzhkotorsi.supabase.co';
-
-// KUNCI TERKINI (Sama seperti teks yang anda hantar)
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt0ZmhtcXZ1aHFsemhrb3RvcnNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyNTY3NTQsImV4cCI6MjA4ODgzMjc1NH0.yIqlOSSz_40EuFJV2DaLMIaD5Ou6A9ycMQMAxrMohyA';
 
-let supabase;
+// Initialize Supabase
+const supabase = window.supabase.createClient(SB_URL, SB_KEY.trim());
 
-try {
-    // Inisialisasi Supabase - Gunakan .trim() untuk buang sebarang 'space'
-    supabase = window.supabase.createClient(SB_URL, SB_KEY.trim());
-} catch (e) {
-    alert("Ralat Pemula: " + e.message);
+// ==================== ELEMENTS REFERENCE ====================
+const elements = {
+    testimoniWrapper: document.getElementById('testimoniWrapper'),
+    testimoniLoading: document.getElementById('testimoniLoading'),
+    testimoniSwiper: document.getElementById('testimoniSwiper'),
+    whatsappForm: document.getElementById('whatsappForm'),
+    submitBtn: document.getElementById('submitBtn'),
+    toast: document.getElementById('toast')
+};
+
+// ==================== TOAST NOTIFICATION ====================
+function showToast(message, type = 'success', duration = 3000) {
+    const toast = elements.toast;
+    if (!toast) return;
+
+    toast.textContent = message;
+    toast.className = `toast ${type}`;
+    toast.classList.add('show');
+
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, duration);
 }
 
 // ==================== LOAD TESTIMONIALS ====================
 async function loadTestimonials() {
-    const wrapper = document.getElementById('testimoniWrapper');
-    const loading = document.getElementById('testimoniLoading');
-    const swiperCont = document.getElementById('testimoniSwiper');
-
-    if (!wrapper) return;
+    const { testimoniWrapper, testimoniLoading, testimoniSwiper } = elements;
+    
+    if (!testimoniWrapper) return;
 
     try {
-        // Ambil data dari table 'testimonials'
+        // Show loading
+        if (testimoniLoading) testimoniLoading.style.display = 'block';
+        if (testimoniSwiper) testimoniSwiper.style.display = 'none';
+
+        // Fetch testimonials from Supabase
         const { data, error } = await supabase
             .from('testimonials')
             .select('*')
-            .eq('active', true);
+            .eq('active', true)
+            .order('id', { ascending: false });
 
-        if (error) {
-            alert("Ralat Supabase: " + error.message);
-            return;
-        }
+        if (error) throw error;
+
+        // Hide loading
+        if (testimoniLoading) testimoniLoading.style.display = 'none';
 
         if (data && data.length > 0) {
-            let html = "";
+            // Build HTML for testimonials
+            let html = '';
             data.forEach(t => {
                 html += `
                 <div class="swiper-slide">
@@ -48,83 +66,174 @@ async function loadTestimonials() {
                 </div>`;
             });
             
-            wrapper.innerHTML = html;
-            if (loading) loading.style.display = 'none';
-            if (swiperCont) swiperCont.style.display = 'block';
+            testimoniWrapper.innerHTML = html;
+            if (testimoniSwiper) testimoniSwiper.style.display = 'block';
 
-            // Mula Swiper Slider
+            // Initialize Swiper
             new Swiper('.mySwiper', {
                 slidesPerView: 1,
                 spaceBetween: 20,
                 loop: data.length > 1,
-                observer: true,
-                observeParents: true,
-                pagination: { el: '.swiper-pagination', clickable: true },
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                pagination: { 
+                    el: '.swiper-pagination', 
+                    clickable: true 
+                },
                 breakpoints: {
-                    768: { slidesPerView: 2 },
+                    640: { slidesPerView: 2 },
                     1024: { slidesPerView: 3 }
                 }
             });
-            
-            alert("✅ Berjaya! Testimoni dimuatkan.");
         } else {
-            alert("Sambungan Berjaya, tetapi tiada data ditemui.");
-            if (loading) loading.style.display = 'none';
+            testimoniWrapper.innerHTML = `
+                <div class="swiper-slide">
+                    <div class="testi-card">
+                        <div class="testi-text">Tiada testimoni buat masa ini.</div>
+                    </div>
+                </div>`;
+            if (testimoniSwiper) testimoniSwiper.style.display = 'block';
         }
     } catch (err) {
-        alert("Ralat Sistem: " + err.message);
+        console.error('Error loading testimonials:', err);
+        
+        if (testimoniLoading) testimoniLoading.style.display = 'none';
+        if (testimoniWrapper) {
+            testimoniWrapper.innerHTML = `
+                <div class="swiper-slide">
+                    <div class="testi-card">
+                        <div class="testi-text">Gagal memuatkan testimoni. Sila cuba sebentar lagi.</div>
+                    </div>
+                </div>`;
+        }
+        if (testimoniSwiper) testimoniSwiper.style.display = 'block';
+        
+        showToast('Gagal memuatkan testimoni', 'error');
     }
 }
 
-// ==================== WHATSAPP FORM ====================
-const regForm = document.getElementById('whatsappForm');
-if (regForm) {
-    regForm.onsubmit = async function(e) {
+// ==================== WHATSAPP FORM HANDLER ====================
+if (elements.whatsappForm) {
+    elements.whatsappForm.addEventListener('submit', async function(e) {
         e.preventDefault();
-        const btn = document.getElementById('submitBtn');
+        
+        const btn = elements.submitBtn;
         const originalText = btn.innerHTML;
 
         try {
+            // Disable button and show loading
             btn.disabled = true;
-            btn.innerHTML = "Sila Tunggu...";
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
 
-            // Ambil data input
-            const sName = document.getElementById('stuName').value;
-            const pName = document.getElementById('parentName').value;
-            const pPhone = document.getElementById('parentPhone').value;
-            const pEmail = document.getElementById('parentEmail').value;
-            const sLevel = document.getElementById('stuLevel').value;
-            const sSub = document.getElementById('stuSubject').value;
-            const cType = document.getElementById('classType').value;
+            // Get form values
+            const formData = {
+                parentName: document.getElementById('parentName')?.value || '',
+                stuName: document.getElementById('stuName')?.value,
+                parentPhone: document.getElementById('parentPhone')?.value,
+                parentEmail: document.getElementById('parentEmail')?.value,
+                stuLevel: document.getElementById('stuLevel')?.value,
+                stuSubject: document.getElementById('stuSubject')?.value,
+                classType: document.getElementById('classType')?.value || 'Kelas Sebenar',
+                stuMsg: document.getElementById('stuMsg')?.value || ''
+            };
 
-            // 1. Simpan ke Supabase (Table: students)
-            const { error: insertError } = await supabase.from('students').insert([{
-                name: sName,
-                parent_name: pName,
-                parent_phone: pPhone,
-                parent_email: pEmail,
-                student_level: sLevel,
-                subject: sSub
-            }]);
+            // Validate required fields
+            if (!formData.stuName || !formData.parentPhone || !formData.parentEmail || 
+                !formData.stuLevel || !formData.stuSubject) {
+                showToast('Sila lengkapkan semua ruangan wajib', 'error');
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+                return;
+            }
+
+            // Save to Supabase
+            const { error: insertError } = await supabase
+                .from('students')
+                .insert([{
+                    name: formData.stuName,
+                    parent_name: formData.parentName,
+                    parent_phone: formData.parentPhone,
+                    parent_email: formData.parentEmail,
+                    student_level: formData.stuLevel,
+                    subject: formData.stuSubject
+                }]);
 
             if (insertError) throw insertError;
 
-            // 2. Format & Redirect ke WhatsApp
+            // Show success message
+            showToast('Pendaftaran berjaya! Sedang redirect ke WhatsApp...', 'success');
+
+            // Format WhatsApp message
             const waMsg = `*PENDAFTARAN DALE EDUHUB*%0A%0A` +
-                          `Pelajar: ${sName}%0A` +
-                          `Tingkatan: ${sLevel}%0A` +
-                          `Subjek: ${sSub}%0A` +
-                          `Pakej: ${cType}`;
+                `👤 *Nama Pelajar:* ${formData.stuName}%0A` +
+                `📚 *Tingkatan:* ${formData.stuLevel}%0A` +
+                `📖 *Subjek:* ${formData.stuSubject}%0A` +
+                `🎯 *Jenis Kelas:* ${formData.classType}%0A` +
+                `👪 *Ibu/Bapa:* ${formData.parentName || 'Tiada'}}%0A` +
+                `📞 *Telefon:* ${formData.parentPhone}%0A` +
+                `📧 *Email:* ${formData.parentEmail}%0A` +
+                `📝 *Catatan:* ${formData.stuMsg || 'Tiada catatan'}`;
             
-            window.location.href = `https://wa.me/60128258869?text=${waMsg}`;
+            // Redirect to WhatsApp after 1 second
+            setTimeout(() => {
+                window.open(`https://wa.me/60128258869?text=${waMsg}`, '_blank');
+            }, 1000);
 
         } catch (err) {
-            alert("Gagal Daftar: " + err.message);
+            console.error('Form error:', err);
+            showToast('Gagal mendaftar: ' + err.message, 'error');
             btn.disabled = false;
             btn.innerHTML = originalText;
         }
-    };
+    });
 }
 
-// Jalankan sistem bila halaman siap
-window.onload = loadTestimonials;
+// ==================== MOBILE MENU ====================
+function toggleMobileMenu() {
+    const navLinks = document.querySelector('.nav-links');
+    if (navLinks) {
+        navLinks.classList.toggle('active');
+    }
+}
+
+// Close mobile menu when clicking a link
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        const navLinks = document.querySelector('.nav-links');
+        if (navLinks && window.innerWidth <= 768) {
+            navLinks.classList.remove('active');
+        }
+    });
+});
+
+// ==================== SMOOTH SCROLL FOR ANCHOR LINKS ====================
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// ==================== INITIALIZE ON PAGE LOAD ====================
+document.addEventListener('DOMContentLoaded', function() {
+    // Load testimonials
+    loadTestimonials();
+
+    // Add active class to current nav link
+    const currentLocation = window.location.pathname;
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        if (link.getAttribute('href') === 'index.html' || link.getAttribute('href') === '/') {
+            if (currentLocation === '/' || currentLocation.endsWith('index.html')) {
+                link.classList.add('active');
+            }
+        }
+    });
+});
