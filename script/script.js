@@ -1,89 +1,90 @@
-// ==================== CONFIGURATION ====================
+// ==================== CONFIG ====================
 const SB_URL = 'https://ktfhmqvuhqlzhkotorsi.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt0ZmhtcXZ1aHFsemhrb3RvcnNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTE2OTI2MTAsImV4cCI6MjAyNzI2ODYxMH0.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt0ZmhtcXZ1aHFsemhrb3RvcnNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyNTY3NTQsImV4cCI6MjA4ODgzMjc1NH0.yIqlOSSz_40EuFJV2DaLMIaD5Ou6A9ycMQMAxrMohyA';
 
-// Pastikan library Supabase dimuatkan
+// Initialize
 let supabase;
 try {
     supabase = window.supabase.createClient(SB_URL, SB_KEY);
 } catch (e) {
-    alert("Library Supabase gagal dimuatkan. Sila semak sambungan internet.");
+    alert("CRITICAL: Library Supabase tak load. Pastikan internet OK.");
 }
 
-// ==================== 1. LOAD TESTIMONIALS ====================
+// ==================== LOAD TESTIMONIALS ====================
 async function loadTestimonials() {
     const wrapper = document.getElementById('testimoniWrapper');
     const loading = document.getElementById('testimoniLoading');
     const container = document.getElementById('testimoniSwiper');
 
-    if (!wrapper) return;
-
     try {
-        // Tarik data dari table testimonials
+        // Step 1: Cuba tarik data
         const { data, error } = await supabase
             .from('testimonials')
-            .select('*')
-            .eq('active', true);
+            .select('*');
 
-        if (error) throw error;
-
-        if (data && data.length > 0) {
-            let html = '';
-            data.forEach(t => {
-                html += `
-                <div class="swiper-slide">
-                    <div class="testi-card">
-                        <div class="testi-text">"${t.message}"</div>
-                        <div class="testi-name">${t.name}</div>
-                        <div class="testi-subject">${t.subject}</div>
-                    </div>
-                </div>`;
-            });
-            wrapper.innerHTML = html;
-            
-            // Sembunyikan loading, tunjuk swiper
+        // Step 2: Jika ada error dari Supabase, tunjuk Alert terus
+        if (error) {
+            alert("Ralat Supabase: " + error.message + "\nCode: " + error.code);
             if (loading) loading.style.display = 'none';
-            if (container) container.style.display = 'block';
-
-            // Mula Swiper
-            new Swiper('.mySwiper', {
-                slidesPerView: 1,
-                spaceBetween: 20,
-                loop: data.length > 1,
-                observer: true,
-                observeParents: true,
-                pagination: { el: '.swiper-pagination', clickable: true },
-                breakpoints: {
-                    768: { slidesPerView: 2 },
-                    1024: { slidesPerView: 3 }
-                }
-            });
-        } else {
-            // Jika data berjaya ditarik tapi kosong
-            if (loading) loading.style.display = 'none';
-            wrapper.innerHTML = '<div class="testi-card">Tiada testimoni ditemui dalam database.</div>';
+            return;
         }
-    } catch (err) {
+
+        // Step 3: Jika data kosong
+        if (!data || data.length === 0) {
+            alert("Berjaya sambung, tapi data dalam table 'testimonials' KOSONG.");
+            if (loading) loading.style.display = 'none';
+            return;
+        }
+
+        // Step 4: Bina HTML
+        let html = '';
+        data.forEach(t => {
+            html += `
+            <div class="swiper-slide">
+                <div class="testi-card">
+                    <div class="testi-text">"${t.message}"</div>
+                    <div class="testi-name">${t.name}</div>
+                    <div class="testi-subject">${t.subject}</div>
+                </div>
+            </div>`;
+        });
+        
+        wrapper.innerHTML = html;
         if (loading) loading.style.display = 'none';
-        alert("Ralat Testimoni: " + err.message);
+        if (container) container.style.display = 'block';
+
+        // Step 5: Start Swiper
+        new Swiper('.mySwiper', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            loop: true,
+            observer: true,
+            observeParents: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            breakpoints: {
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 }
+            }
+        });
+
+    } catch (err) {
+        alert("Ralat JavaScript: " + err.message);
+        if (loading) loading.style.display = 'none';
     }
 }
 
-// ==================== 2. WHATSAPP FORM ====================
+// ==================== WHATSAPP FORM ====================
 const regForm = document.getElementById('whatsappForm');
 if (regForm) {
     regForm.addEventListener('submit', async function(e) {
-        e.preventDefault(); 
-        
+        e.preventDefault();
         const btn = document.getElementById('submitBtn');
-        const originalBtnText = btn.innerHTML;
+        const originalText = btn.innerHTML;
 
         try {
-            // UI Loading
             btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menghantar...';
+            btn.innerHTML = "Menghantar...";
 
-            // Ambil data dari input
             const sName = document.getElementById('stuName').value;
             const pName = document.getElementById('parentName').value;
             const pPhone = document.getElementById('parentPhone').value;
@@ -91,10 +92,9 @@ if (regForm) {
             const sLevel = document.getElementById('stuLevel').value;
             const sSub = document.getElementById('stuSubject').value;
             const cType = document.getElementById('classType').value;
-            const sMsg = document.getElementById('stuMsg').value || 'Tiada';
 
-            // 1. Simpan ke Supabase (Table: students)
-            const { error: sbError } = await supabase.from('students').insert([{
+            // Simpan data
+            const { error } = await supabase.from('students').insert([{
                 name: sName,
                 parent_name: pName,
                 parent_phone: pPhone,
@@ -103,44 +103,26 @@ if (regForm) {
                 subject: sSub
             }]);
 
-            if (sbError) throw sbError;
+            if (error) throw error;
 
-            // 2. Format Mesej WhatsApp
-            const message = `*PENDAFTARAN DALE EDUHUB*%0A%0A` +
-                            `Nama Pelajar: ${sName}%0A` +
-                            `Tingkatan: ${sLevel}%0A` +
-                            `Subjek: ${sSub}%0A` +
-                            `Jenis: ${cType}%0A` +
-                            `Penjaga: ${pName}%0A` +
-                            `No Tel: ${pPhone}%0A` +
-                            `Catatan: ${sMsg}`;
-
-            // 3. Redirect ke WhatsApp
-            const waUrl = `https://wa.me/60128258869?text=${message}`;
-            
-            // Guna window.location untuk lebih stabil di tablet
-            window.location.href = waUrl;
-            
-            regForm.reset();
+            // WhatsApp Redirect
+            const msg = `Pendaftaran DALe EduHub%0ANama: ${sName}%0ASubjek: ${sSub}%0AJenis: ${cType}`;
+            window.location.href = `https://wa.me/60128258869?text=${encodeURIComponent(msg)}`;
 
         } catch (err) {
-            alert("Ralat Pendaftaran: " + err.message);
+            alert("Gagal daftar: " + err.message);
         } finally {
             btn.disabled = false;
-            btn.innerHTML = originalBtnText;
+            btn.innerHTML = originalText;
         }
     });
 }
 
-// ==================== 3. MOBILE MENU ====================
+// Mobile Menu
 window.toggleMobileMenu = function() {
     const nav = document.querySelector('.nav-links');
-    if (nav) {
-        nav.style.display = (nav.style.display === 'flex') ? 'none' : 'flex';
-    }
+    if (nav) nav.style.display = (nav.style.display === 'flex') ? 'none' : 'flex';
 };
 
-// ==================== 4. INITIALIZE ====================
-window.addEventListener('load', () => {
-    loadTestimonials();
-});
+// Start
+window.addEventListener('load', loadTestimonials);
