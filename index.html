@@ -4,1202 +4,387 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>DALe EduHub | Teraju Pendidikan Digital Bersepadu</title>
-    <!-- Swiper CSS untuk carousel testimoni -->
+    
+    <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <!-- Google Fonts: Inter & Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            /* Korporat Purple Palette */
-            --primary: #4f46e5;
-            --primary-dark: #3730a3;
-            --primary-light: #818cf8;
-            --secondary: #6366f1;
-            --accent: #f59e0b;
-            --accent-light: #fbbf24;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --gray: #64748b;
-            --gray-light: #e2e8f0;
-            --white: #ffffff;
-            --red: #ef4444;
-            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-            --glass: rgba(255, 255, 255, 0.98);
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.5;
-            color: var(--dark);
-            background-color: var(--light);
-            scroll-behavior: smooth;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        h1, h2, h3, h4 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 700;
-        }
-
-        /* Navigation - Glass Effect */
-        header {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 0.7rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            border-bottom: 1px solid rgba(79, 70, 229, 0.1);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: var(--primary-dark);
-        }
-
-        .logo-icon {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 10px;
-            color: white;
-            font-size: 1.3rem;
-            margin-right: 8px;
-        }
-
-        .logo-text h1 {
-            font-size: 1.1rem;
-            line-height: 1.1;
-            letter-spacing: -0.5px;
-            color: var(--primary-dark);
-        }
-
-        .logo-text p {
-            font-size: 0.6rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: var(--gray);
-            letter-spacing: 1px;
-        }
-
-        .nav-links {
-            display: none;
-            gap: 1.5rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--dark);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .nav-links .btn-small {
-            background: var(--primary);
-            color: white;
-            padding: 6px 16px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.85rem;
-        }
-
-        .menu-icon {
-            font-size: 1.8rem;
-            cursor: pointer;
-            color: var(--primary-dark);
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
-            color: var(--white);
-            padding: 110px 1rem 70px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -30%;
-            right: -10%;
-            width: 350px;
-            height: 350px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: -25px;
-            left: 0;
-            width: 100%;
-            height: 50px;
-            background: var(--light);
-            transform: skewY(-2deg);
-        }
-
-        .hero h2 {
-            font-size: clamp(1.8rem, 5vw, 2.8rem);
-            margin-bottom: 0.8rem;
-            line-height: 1.2;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero p {
-            font-size: 0.95rem;
-            max-width: 650px;
-            margin: 0 auto 1.2rem;
-            opacity: 0.9;
-            font-weight: 300;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            background: var(--accent);
-            color: var(--white);
-            padding: 12px 28px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
-            border: none;
-            cursor: pointer;
-            font-size: 0.9rem;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4);
-        }
-
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            box-shadow: none;
-        }
-
-        .btn-outline:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        /* Sections */
-        .section {
-            padding: 50px 1rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 35px;
-        }
-
-        .section-title h3 {
-            font-size: 1.7rem;
-            margin-bottom: 0.6rem;
-            position: relative;
-            display: inline-block;
-            color: var(--primary-dark);
-        }
-
-        .section-title h3::after {
-            content: '';
-            width: 45px;
-            height: 3px;
-            background: var(--accent);
-            position: absolute;
-            bottom: -6px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 2px;
-        }
-
-        .section-title p {
-            color: var(--gray);
-            max-width: 500px;
-            margin: 0 auto;
-            font-size: 0.9rem;
-        }
-
-        /* Cards Grid */
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.2rem;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.2rem;
-        }
-
-        .card {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 25px 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-            border: 1px solid var(--gray-light);
-            transition: all 0.3s ease;
-            height: 100%;
-        }
-
-        /* Subject Tags */
-        .subject-tag {
-            background: #eef2ff;
-            color: var(--primary);
-            padding: 4px 12px;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin: 3px;
-            display: inline-block;
-        }
-
-        /* Pricing Cards */
-        .pricing-card {
-            background: var(--white);
-            border-radius: 24px;
-            padding: 25px 20px;
-            text-align: left;
-            border: 1px solid var(--gray-light);
-            transition: all 0.3s;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .price {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-dark);
-            margin: 8px 0;
-            line-height: 1.2;
-        }
-
-        .price small {
-            font-size: 0.8rem;
-            color: var(--gray);
-            font-weight: 400;
-        }
-
-        .price s {
-            font-size: 1.2rem;
-            color: var(--red);
-            margin-right: 6px;
-            opacity: 0.8;
-        }
-
-        .discount-badge {
-            background: var(--accent);
-            color: white;
-            padding: 2px 8px;
-            border-radius: 20px;
-            font-size: 0.65rem;
-            font-weight: 600;
-            margin-left: 5px;
-            display: inline-block;
-            vertical-align: middle;
-        }
-
-        .feature-list {
-            list-style: none;
-            margin: 12px 0;
-            flex-grow: 1;
-        }
-
-        .feature-list li {
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.85rem;
-        }
-
-        .feature-list li::before {
-            content: "✓";
-            color: var(--accent);
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-
-        /* Tutor Profile - Enhanced with stats */
-        .tutor-profile {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            border-radius: 30px;
-            padding: 25px 20px;
-            color: white;
-            margin-bottom: 30px;
-        }
-
-        .tutor-profile-content {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .tutor-avatar {
-            font-size: 4rem;
-            text-align: center;
-            background: rgba(255,255,255,0.15);
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-            border: 3px solid rgba(255,255,255,0.3);
-        }
-
-        .tutor-info {
-            text-align: center;
-        }
-
-        .tutor-info h4 {
-            font-size: 1.5rem;
-            margin-bottom: 2px;
-            color: white;
-        }
-
-        .tutor-title {
-            font-size: 1rem;
-            opacity: 0.9;
-            margin-bottom: 8px;
-            font-weight: 400;
-        }
-
-        .tutor-quote {
-            font-style: italic;
-            background: rgba(255,255,255,0.1);
-            padding: 12px;
-            border-radius: 16px;
-            margin: 12px 0;
-            font-size: 0.9rem;
-            border-left: 3px solid var(--accent);
-        }
-
-        .tutor-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin: 15px 0;
-        }
-
-        .stat-item {
-            background: rgba(255,255,255,0.1);
-            border-radius: 16px;
-            padding: 10px 5px;
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 1.3rem;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .stat-label {
-            font-size: 0.7rem;
-            opacity: 0.8;
-        }
-
-        .tutor-achievements {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-            margin: 12px 0;
-        }
-
-        .achievement-badge {
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.2);
-            padding: 6px 14px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .language-badge {
-            background: rgba(255,255,255,0.2);
-            padding: 4px 10px;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            display: inline-block;
-            margin: 2px;
-        }
-
-        .tutor-bio {
-            background: rgba(255,255,255,0.05);
-            padding: 15px;
-            border-radius: 16px;
-            font-size: 0.85rem;
-            line-height: 1.6;
-        }
-
-        .tutor-bio strong {
-            color: var(--accent);
-        }
-
-        .method-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
-            margin-top: 20px;
-        }
-
-        .method-card {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: var(--shadow);
-        }
-
-        .method-icon {
-            font-size: 2rem;
-            margin-bottom: 8px;
-        }
-
-        /* Testimonials */
-        .swiper {
-            width: 100%;
-            padding: 15px 0 40px;
-        }
-
-        .swiper-slide {
-            height: auto;
-        }
-
-        .testi-card {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 5px 12px rgba(0,0,0,0.03);
-            border: 1px solid var(--gray-light);
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-
-        .testi-card::before {
-            content: '"';
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 3.5rem;
-            color: var(--primary-light);
-            opacity: 0.2;
-            font-family: serif;
-        }
-
-        .testi-text {
-            color: var(--dark);
-            margin-bottom: 15px;
-            overflow-y: auto;
-            max-height: calc(1.5em * 3);
-            line-height: 1.5;
-            padding-right: 5px;
-            font-weight: 400;
-            font-size: 0.85rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .testi-text::-webkit-scrollbar {
-            width: 3px;
-        }
-
-        .testi-text::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 10px;
-        }
-
-        .testi-name {
-            font-weight: 700;
-            color: var(--primary);
-            display: block;
-            font-size: 0.95rem;
-        }
-
-        .testi-subject {
-            color: var(--gray);
-            font-size: 0.75rem;
-            background: #f1f5f9;
-            padding: 2px 8px;
-            border-radius: 50px;
-            display: inline-block;
-            margin-top: 5px;
-            width: fit-content;
-        }
-
-        /* Swiper Pagination - Mobile friendly */
-        .swiper-button-next, .swiper-button-prev {
-            display: none;
-        }
-
-        .swiper-pagination-bullet {
-            width: 6px;
-            height: 6px;
-            background: var(--gray);
-            opacity: 0.3;
-        }
-
-        .swiper-pagination-bullet-active {
-            background: var(--primary);
-            opacity: 1;
-            width: 16px;
-            border-radius: 4px;
-        }
-
-        /* Form Mobile Optimized */
-        .form-container {
-            background: var(--white);
-            padding: 25px 18px;
-            border-radius: 28px;
-            box-shadow: var(--shadow-lg);
-            max-width: 600px;
-            margin: 0 auto;
-            border: 1px solid var(--gray-light);
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 4px;
-            font-weight: 600;
-            color: var(--primary-dark);
-            font-size: 0.85rem;
-        }
-
-        .required-badge {
-            color: var(--accent);
-            font-size: 0.9rem;
-            margin-left: 3px;
-        }
-
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 12px 14px;
-            border-radius: 14px;
-            border: 2px solid var(--gray-light);
-            font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-            background: #f8fafc;
-            -webkit-appearance: none;
-            appearance: none;
-        }
-
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            border-color: var(--primary);
-            background: white;
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: var(--white);
-            padding: 40px 1rem 15px;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-            max-width: 1200px;
-            margin: 0 auto 20px;
-        }
-
-        .footer-grid h4 {
-            color: white;
-            margin-bottom: 0.8rem;
-            font-size: 0.95rem;
-        }
-
-        .footer-grid p, .footer-grid li {
-            color: #94a3b8;
-            font-size: 0.8rem;
-            line-height: 1.7;
-            list-style: none;
-        }
-
-        hr {
-            opacity: 0.1;
-            margin-bottom: 12px;
-        }
-
-        /* Responsive Breakpoints - Optimized for all devices */
-        @media (min-width: 480px) {
-            .tutor-stats {
-                gap: 12px;
-            }
-            .stat-number {
-                font-size: 1.5rem;
-            }
-        }
-
-        @media (min-width: 640px) {
-            .grid { grid-template-columns: repeat(2, 1fr); }
-            .grid-3 { grid-template-columns: repeat(2, 1fr); }
-            .method-grid { grid-template-columns: repeat(2, 1fr); }
-            
-            .tutor-profile-content {
-                flex-direction: row;
-                text-align: left;
-            }
-            .tutor-avatar {
-                margin: 0;
-                flex: 0 0 100px;
-            }
-            .tutor-info {
-                text-align: left;
-            }
-            .tutor-stats {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (min-width: 768px) {
-            .nav-links { display: flex; }
-            .menu-icon { display: none; }
-            
-            .section { padding: 70px 2rem; }
-            
-            .tutor-profile { padding: 35px; }
-            .tutor-avatar { flex: 0 0 120px; font-size: 5rem; }
-            
-            .form-container { padding: 35px; }
-        }
-
-        @media (min-width: 1024px) {
-            .grid { grid-template-columns: repeat(3, 1fr); }
-            .grid-3 { grid-template-columns: repeat(3, 1fr); }
-            .method-grid { grid-template-columns: repeat(3, 1fr); }
-            .footer-grid { grid-template-columns: repeat(3, 1fr); }
-            
-            .hero { padding: 130px 2rem 90px; }
-            .hero h2 { font-size: 3rem; }
-        }
-
-        /* Touch-friendly improvements */
-        button, .btn, a {
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        input, select, textarea {
-            font-size: 16px !important; /* Prevents zoom on iOS */
-        }
-    </style>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- Toast notification -->
+    <div id="toast" class="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <!-- Navigation -->
     <header>
         <nav>
-            <a href="#" class="logo">
-                <span class="logo-icon">🎓</span>
+            <a href="#" class="logo" onclick="showPage('home')">
+                <img src="images/logo" alt="DALe EduHub" class="logo-img">
                 <div class="logo-text">
                     <h1>DALe EduHub</h1>
                     <p>Dream • Act • Learn</p>
                 </div>
             </a>
             <div class="nav-links">
-                <a href="#home">Utama</a>
-                <a href="#program">Yuran</a>
-                <a href="#testimoni">Testimoni</a>
-                <a href="#tutor-metodologi">Tutor</a>
-                <a href="#daftar" class="btn-small">Daftar</a>
+                <a href="#" onclick="showPage('home')" id="nav-home" class="active">Utama</a>
+                <a href="#" onclick="showPage('program')" id="nav-program">Yuran</a>
+                <a href="#" onclick="showPage('testimoni')" id="nav-testimoni">Testimoni</a>
+                <a href="#" onclick="showPage('tutor')" id="nav-tutor">Tutor</a>
+                <a href="#" onclick="showPage('daftar')" class="btn-small">Daftar</a>
             </div>
-            <div class="menu-icon" onclick="alert('Menu akan muncul di sini. Untuk desktop, gunakan menu di atas.')">☰</div>
+            <div class="menu-icon" onclick="toggleMobileMenu()">☰</div>
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <h2>Membina Masa Depan <br><span style="color: var(--accent)">Melalui Inovasi Digital</span></h2>
-            <p>Peneraju pendidikan dalam talian dengan integrasi Industry-Linked Learning untuk melahirkan generasi yang relevan dengan keperluan industri global.</p>
-            <div style="display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap;">
-                <a href="#program" class="btn">Lihat Program</a>
+    <!-- HOME PAGE -->
+    <div id="home-page" class="page active">
+        <section id="home" class="hero">
+            <div class="container">
+                <h2>Membina Masa Depan <br><span style="color: var(--accent)">Melalui Inovasi Digital</span></h2>
+                <p>Peneraju pendidikan dalam talian dengan integrasi Industry-Linked Learning untuk melahirkan generasi yang relevan dengan keperluan industri global.</p>
+                <a href="#" onclick="showPage('program')" class="btn">Lihat Program</a>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Combined Tutor & Metodologi Section - Enhanced with complete profile -->
-    <section id="tutor-metodologi" class="section">
-        <div class="container">
-            <!-- Tutor Profile - Complete with all details -->
-            <div class="tutor-profile">
-                <div class="tutor-profile-content">
-                    <div class="tutor-avatar">👩‍🏫</div>
-                    <div class="tutor-info">
-                        <h4>Cikgu Dayang Ahmad</h4>
-                        <div class="tutor-title">Ex-Software Engineer (AI) | Tutor STEM & Bahasa Jepun</div>
-                        
-                        <div class="tutor-quote">
-                            "Matlamat saya bukan sekadar mengajar untuk peperiksaan, tetapi membina logik dan kemahiran yang boleh diguna pakai dalam kerjaya masa hadapan."
-                        </div>
-
-                        <!-- Stats in 3 columns -->
-                        <div class="tutor-stats">
-                            <div class="stat-item">
-                                <div class="stat-number">2</div>
-                                <div class="stat-label">Tahun Pengalaman</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-number">300+</div>
-                                <div class="stat-label">Kelas Dijalankan</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-number">20+</div>
-                                <div class="stat-label">Pelajar Diajar</div>
-                            </div>
-                        </div>
-
-                        <!-- Achievements badges -->
-                        <div class="tutor-achievements">
-                            <span class="achievement-badge">🏆 A Matematik SPM 2016</span>
-                            <span class="achievement-badge">🏆 A Bahasa Jepun SPM 2016</span>
-                        </div>
-
-                        <!-- Languages -->
-                        <div style="margin-bottom: 10px;">
-                            <span class="language-badge">🌐 Melayu</span>
-                            <span class="language-badge">🌐 English</span>
-                            <span class="language-badge">🌐 Jepun</span>
-                        </div>
-
-                        <!-- Bio -->
-                        <div class="tutor-bio">
-                            <p><strong>💡 Mengenai Saya</strong></p>
-                            <p>Saya merupakan graduan Ijazah Sarjana Muda Kejuruteraan Elektronik Bioperubatan (Kepujian) dari UniMAP. Sebelum beralih ke bidang pendidikan, saya berpengalaman sebagai <strong>Software Engineer (Artificial Intelligence)</strong> dan <strong>Mechanical and Electrical Engineer</strong>. Pengalaman industri ini membolehkan saya mengajar subjek teknikal dengan lebih praktikal dan mendalam.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Metodologi (3 cards) -->
-            <div class="section-title" style="margin-top: 30px;">
-                <h3>Pendekatan Kami</h3>
-                <p>Membina kefahaman melalui pengalaman dan visualisasi</p>
-            </div>
-            <div class="method-grid">
-                <div class="method-card">
-                    <div class="method-icon">📖</div>
-                    <h4 style="font-size: 1.1rem;">Teknik Penceritaan</h4>
-                    <p style="color: var(--gray); font-size: 0.85rem;">Mengaitkan latihan dengan contoh dunia pekerjaan sebenar supaya pelajar nampak kepentingan setiap topik.</p>
-                </div>
-                <div class="method-card">
-                    <div class="method-icon">💻</div>
-                    <h4 style="font-size: 1.1rem;">Live Coding & Visual</h4>
-                    <p style="color: var(--gray); font-size: 0.85rem;">Tunjuk cara step-by-step untuk Matematik dan sesi Live Coding interaktif untuk Sains Komputer.</p>
-                </div>
-                <div class="method-card">
-                    <div class="method-icon">🎯</div>
-                    <h4 style="font-size: 1.1rem;">Latih Tubi Berperingkat</h4>
-                    <p style="color: var(--gray); font-size: 0.85rem;">Modul dari tahap asas ke KBAT yang disusun khas untuk membina keyakinan pelajar mengikut rentak sendiri.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Program & Yuran Section -->
-    <section id="program" class="section" style="background: #f1f5f9;">
-        <div class="container">
-            <div class="section-title">
-                <h3>Program & Yuran</h3>
-                <p>Pilih program yang sesuai dengan keperluan anda</p>
-            </div>
-            
-            <!-- Grid 3 columns for pricing -->
-            <div class="grid">
-                <!-- 1. Kelas Percubaan -->
-                <div class="pricing-card">
-                    <h4 style="font-size: 1.3rem; margin-bottom: 0;">Kelas Percubaan</h4>
-                    <div class="price">RM25 <small>/sesi</small></div>
-                    <ul class="feature-list">
-                        <li>30 minit/sesi</li>
-                        <li>Untuk semua subjek</li>
-                        <li>Analisis asas daripada tutor</li>
-                    </ul>
-                    <a href="#daftar" class="btn btn-outline" style="width: 100%; text-align: center; padding: 10px;">Pilih Trial</a>
-                </div>
-
-                <!-- 2. Menengah Rendah -->
-                <div class="pricing-card">
-                    <h4 style="font-size: 1.3rem; margin-bottom: 0;">Menengah Rendah</h4>
-                    <p style="color: var(--gray); margin-bottom: 5px; font-size: 0.85rem;">Tingkatan 1 - 3</p>
-                    <div class="price">
-                        <s>RM220</s> RM200 <small>/subjek</small>
-                        <span class="discount-badge">10% off</span>
-                    </div>
-                    <div style="margin: 8px 0;">
-                        <span class="subject-tag">Matematik</span>
-                        <span class="subject-tag">Asas Sains Komputer</span>
-                        <span class="subject-tag">Bahasa Jepun</span>
-                    </div>
-                    <ul class="feature-list">
-                        <li>4 kelas sebulan (1 jam/sesi)</li>
-                        <li>Modul disediakan</li>
-                        <li>Penilaian setiap hujung bulan</li>
-                    </ul>
-                    <a href="#daftar" class="btn" style="width: 100%; text-align: center; padding: 10px;">Daftar Sekarang</a>
-                </div>
-
-                <!-- 3. Menengah Atas -->
-                <div class="pricing-card">
-                    <h4 style="font-size: 1.3rem; margin-bottom: 0;">Menengah Atas</h4>
-                    <p style="color: var(--gray); margin-bottom: 5px; font-size: 0.85rem;">Tingkatan 4 - 5</p>
-                    <div class="price">
-                        <s>RM240</s> RM220 <small>/subjek</small>
-                        <span class="discount-badge">10% off</span>
-                    </div>
-                    <div style="margin: 8px 0;">
-                        <span class="subject-tag">Matematik</span>
-                        <span class="subject-tag">Sains Komputer</span>
-                        <span class="subject-tag">Bahasa Jepun</span>
-                    </div>
-                    <ul class="feature-list">
-                        <li>4 kelas sebulan (1 jam/sesi)</li>
-                        <li>Modul disediakan</li>
-                        <li>Penilaian setiap hujung bulan</li>
-                        <li>Fokus SPM & pengenalan industri</li>
-                    </ul>
-                    <a href="#daftar" class="btn" style="width: 100%; text-align: center; padding: 10px;">Daftar Sekarang</a>
-                </div>
-            </div>
-            
-            <!-- Sales note -->
-            <p style="text-align: center; margin-top: 25px; color: var(--primary); font-weight: 600; background: white; padding: 10px; border-radius: 50px; box-shadow: var(--shadow); font-size: 0.9rem;">
-                🎉 PROMOSI TERHAD: Diskaun 10% untuk semua pakej!
-            </p>
-        </div>
-    </section>
-
-    <!-- Testimoni Section -->
-    <section id="testimoni" class="section" style="background: #f1f5f9;">
-        <div class="container">
-            <div class="section-title">
-                <h3>Apa Kata Mereka?</h3>
-                <p>Maklum balas ikhlas daripada pelajar dan ibu bapa</p>
-            </div>
-            <!-- Swiper Carousel -->
-            <div class="swiper mySwiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="testi-card">
-                            <div class="testi-text">
-                                "Kelas dengan cikgu Dayang sangat okay. Cikgu tak berat mulut untuk ulang semula kalau saya tak faham. Cikgu pun ajar perlahan tak terlalu laju."
-                            </div>
-                            <span class="testi-name">Cik Syuhada</span>
-                            <span class="testi-subject">Matematik (Menengah Atas)</span>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="testi-card">
-                            <div class="testi-text">
-                                "Sebelum ini, anak lelaki saya pernah belajar dengan cikgu Dayang bagi kelas intensif sebelum SPM. Kali ini, anak perempuan saya pulak yang menjadi murid kepada cikgu Dayang. Alhamdulilah, kedua-dua anak saya okay dan faham."
-                            </div>
-                            <span class="testi-name">Encik Azimy</span>
-                            <span class="testi-subject">Sains Komputer</span>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="testi-card">
-                            <div class="testi-text">
-                                "Terima kasih cikgu Dayang kerana sangat sabar dalam mengajar anak saya yang pendiam."
-                            </div>
-                            <span class="testi-name">Puan Basyirah</span>
-                            <span class="testi-subject">Matematik (Menengah Rendah)</span>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="testi-card">
-                            <div class="testi-text">
-                                "Alhamdulillah sangat mudah berurusan dengan cikgu. Anak saya pun okay dan faham dengan apa yang cikgu ajar."
-                            </div>
-                            <span class="testi-name">Puan Aiza</span>
-                            <span class="testi-subject">Bahasa Jepun</span>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="testi-card">
-                            <div class="testi-text">
-                                "Alhamdulillah...saya sangat berpuas hati dengan cara & teknik pengajaran bahasa Jepun. Anak saya seronok belajar."
-                            </div>
-                            <span class="testi-name">Puan Naily</span>
-                            <span class="testi-subject">Bahasa Jepun</span>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="testi-card">
-                            <div class="testi-text">
-                                "Tutor baik dan sangat knowledgable. Anak saya nampak bersemangat setiap kali ada kelas. Highly recommended!"
-                            </div>
-                            <span class="testi-name">Encik Khalid</span>
-                            <span class="testi-subject">Sains Komputer</span>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="testi-card">
-                            <div class="testi-text">
-                                "Alhamdulillah...anak saya daripada tak faham, sekarang dah faham dan dapat jawab soalan sains komputer dengan baik."
-                            </div>
-                            <span class="testi-name">Puan Norzalina</span>
-                            <span class="testi-subject">Sains Komputer</span>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="testi-card">
-                            <div class="testi-text">
-                                "Alhamdulilah terima kasih cikgu dayang.. disebabkan anak saya dapat menguasai subjek matematiknya... kini saya lebih yakin."
-                            </div>
-                            <span class="testi-name">Puan Zam Zarina</span>
-                            <span class="testi-subject">Matematik (Menengah Rendah)</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Pagination only -->
-                <div class="swiper-pagination"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Registration Form -->
-    <section id="daftar" class="section" style="background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);">
-        <div class="container">
-            <div class="form-container">
+        <section class="section">
+            <div class="container">
                 <div class="section-title">
-                    <h3>Daftar Kelas DALe EduHub</h3>
-                    <p>Lengkapi borang di bawah, kami akan menghubungi anda dalam masa 24 jam</p>
+                    <h3>Mengapa Pilih Kami?</h3>
+                    <p>Pendekatan pembelajaran yang berbeza dari yang lain</p>
                 </div>
-                <form id="whatsappForm">
-                    <!-- Nama Parent -->
-                    <div class="form-group">
-                        <label>Nama Ibu/Bapa Penjaga</label>
-                        <input type="text" id="parentName" placeholder="Masukkan nama ibu/bapa">
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h4>Industry-Linked Learning</h4>
+                        <p>Setiap topik dikaitkan dengan aplikasi dunia pekerjaan sebenar.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">👩‍🏫</div>
+                        <h4>Tutor Berpengalaman</h4>
+                        <p>Ex-Software Engineer dengan pengalaman industri teknologi.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h4>Fleksibel & Mudah</h4>
+                        <p>Kelas online melalui Google Meet, modul di Google Classroom.</p>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="#" onclick="showPage('tutor')" class="btn btn-outline">Kenali Tutor Kami</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- PROGRAM PAGE (Yuran) -->
+    <div id="program-page" class="page">
+        <section class="section" style="padding-top: 100px;">
+            <div class="container">
+                <div class="section-title">
+                    <h3>Program & Yuran</h3>
+                    <p>Pilih program yang sesuai dengan keperluan anda</p>
+                </div>
+                
+                <div class="pricing-grid">
+                    <!-- Kelas Percubaan -->
+                    <div class="pricing-card">
+                        <h4>Kelas Percubaan</h4>
+                        <div class="price">RM25 <small>/sesi</small></div>
+                        <ul class="feature-list">
+                            <li>30 minit/sesi</li>
+                            <li>Untuk semua subjek</li>
+                            <li>Analisis asas daripada tutor</li>
+                        </ul>
+                        <a href="#" onclick="showPage('daftar')" class="btn btn-outline pricing-btn">Pilih Trial</a>
                     </div>
 
-                    <!-- Nama Pelajar (Wajib) -->
-                    <div class="form-group">
-                        <label>Nama Penuh Pelajar <span class="required-badge">*</span></label>
-                        <input type="text" id="stuName" placeholder="Masukkan nama pelajar" required>
-                    </div>
-
-                    <!-- Emel Parent (Wajib) -->
-                    <div class="form-group">
-                        <label>Emel Ibu/Bapa Penjaga <span class="required-badge">*</span></label>
-                        <input type="email" id="parentEmail" placeholder="contoh@email.com" required>
-                    </div>
-
-                    <!-- No Telefon (Wajib) -->
-                    <div class="form-group">
-                        <label>No. Telefon Penjaga <span class="required-badge">*</span></label>
-                        <input type="tel" id="parentPhone" placeholder="Contoh: 0123456789" required>
-                    </div>
-
-                    <!-- Baris Tingkatan dan Jenis Kelas -->
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;">
-                        <div class="form-group">
-                            <label>Tingkatan <span class="required-badge">*</span></label>
-                            <select id="stuLevel" required>
-                                <option value="">Pilih</option>
-                                <option value="Tingkatan 1">Tingkatan 1</option>
-                                <option value="Tingkatan 2">Tingkatan 2</option>
-                                <option value="Tingkatan 3">Tingkatan 3</option>
-                                <option value="Tingkatan 4">Tingkatan 4</option>
-                                <option value="Tingkatan 5">Tingkatan 5</option>
-                            </select>
+                    <!-- Menengah Rendah -->
+                    <div class="pricing-card">
+                        <h4>Menengah Rendah</h4>
+                        <p class="level-tag">Tingkatan 1 - 3</p>
+                        <div class="price">
+                            <span class="original-price">RM220</span> RM200 <small>/subjek</small>
+                            <span class="discount-badge">10% off</span>
                         </div>
-                        <div class="form-group">
-                            <label>Jenis Kelas <span class="required-badge">*</span></label>
-                            <select id="classType" required>
-                                <option value="">Pilih</option>
-                                <option value="Kelas Sebenar">Kelas Sebenar</option>
-                                <option value="Kelas Percubaan">Kelas Percubaan</option>
-                            </select>
+                        <div class="subject-tags">
+                            <span class="subject-tag">Matematik</span>
+                            <span class="subject-tag">Asas Sains Komputer</span>
+                            <span class="subject-tag">Bahasa Jepun</span>
+                        </div>
+                        <ul class="feature-list">
+                            <li>4 kelas sebulan (1 jam/sesi)</li>
+                            <li>Modul disediakan</li>
+                            <li>Penilaian setiap hujung bulan</li>
+                        </ul>
+                        <a href="#" onclick="showPage('daftar')" class="btn pricing-btn">Daftar Sekarang</a>
+                    </div>
+
+                    <!-- Menengah Atas -->
+                    <div class="pricing-card">
+                        <h4>Menengah Atas</h4>
+                        <p class="level-tag">Tingkatan 4 - 5</p>
+                        <div class="price">
+                            <span class="original-price">RM240</span> RM220 <small>/subjek</small>
+                            <span class="discount-badge">10% off</span>
+                        </div>
+                        <div class="subject-tags">
+                            <span class="subject-tag">Matematik</span>
+                            <span class="subject-tag">Sains Komputer</span>
+                            <span class="subject-tag">Bahasa Jepun</span>
+                        </div>
+                        <ul class="feature-list">
+                            <li>4 kelas sebulan (1 jam/sesi)</li>
+                            <li>Modul disediakan</li>
+                            <li>Penilaian setiap hujung bulan</li>
+                            <li>Fokus SPM & pengenalan industri</li>
+                        </ul>
+                        <a href="#" onclick="showPage('daftar')" class="btn pricing-btn">Daftar Sekarang</a>
+                    </div>
+                </div>
+                
+                <div class="promo-banner">
+                    <p>🎉 PROMOSI TERHAD: Diskaun 10% untuk semua pakej!</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- TESTIMONI PAGE -->
+    <div id="testimoni-page" class="page">
+        <section class="section" style="padding-top: 100px;">
+            <div class="container">
+                <div class="section-title">
+                    <h3>Apa Kata Mereka?</h3>
+                    <p>Maklum balas ikhlas daripada pelajar dan ibu bapa</p>
+                </div>
+                
+                <!-- Loading indicator -->
+                <div id="testimoniLoading" class="loading-container">
+                    <div class="spinner"></div>
+                    <p>Memuatkan testimoni...</p>
+                </div>
+                
+                <!-- Swiper Carousel -->
+                <div class="swiper mySwiper" id="testimoniSwiper" style="display: none;">
+                    <div class="swiper-wrapper" id="testimoniWrapper"></div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- TUTOR PAGE (Separate Page) -->
+    <div id="tutor-page" class="page">
+        <div class="tutor-page-container">
+            <div class="container">
+                <a href="#" onclick="showPage('home')" class="back-to-home">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Laman Utama
+                </a>
+                
+                <!-- Tutor Profile Section -->
+                <div class="tutor-profile-full">
+                    <div class="tutor-header">
+                        <div class="tutor-avatar-large">
+                            <img src="images/profile.png" alt="Cikgu Dayang Ahmad">
+                        </div>
+                        <div class="tutor-info-full">
+                            <h1>Cikgu Dayang Ahmad</h1>
+                            <div class="tutor-title">Ex-Software Engineer (AI) | Tutor STEM & Bahasa Jepun</div>
+                            
+                            <div class="badges-container">
+                                <span class="badge-large"><i class="fas fa-trophy"></i> A Matematik SPM 2016</span>
+                                <span class="badge-large"><i class="fas fa-trophy"></i> A Bahasa Jepun SPM 2016</span>
+                            </div>
+                            
+                            <div class="languages">
+                                <span class="language-badge-large"><i class="fas fa-globe"></i> Melayu</span>
+                                <span class="language-badge-large"><i class="fas fa-globe"></i> English</span>
+                                <span class="language-badge-large"><i class="fas fa-globe"></i> Jepun</span>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Subjek (Wajib) -->
-                    <div class="form-group">
-                        <label>Subjek <span class="required-badge">*</span></label>
-                        <select id="stuSubject" required>
-                            <option value="">Sila Pilih Subjek</option>
-                            <option value="Matematik">Matematik</option>
-                            <option value="Asas Sains Komputer">Asas Sains Komputer</option>
-                            <option value="Sains Komputer">Sains Komputer</option>
-                            <option value="Bahasa Jepun">Bahasa Jepun</option>
-                        </select>
+                    <div class="tutor-quote-large">
+                        <i class="fas fa-quote-left"></i>
+                        "Matlamat saya bukan sekadar mengajar untuk peperiksaan, tetapi membina logik dan kemahiran yang boleh diguna pakai dalam kerjaya masa hadapan."
                     </div>
 
-                    <!-- Mesej Tambahan -->
-                    <div class="form-group">
-                        <label>Keputusan Peperiksaan Terakhir & Apa Yang Ingin Dicapai</label>
-                        <textarea id="stuMsg" rows="3" placeholder="Contoh: Dapat B dalam Matematik, ingin tingkatkan ke A. Target SPM 2025..."></textarea>
+                    <div class="tutor-stats-large">
+                        <div class="stat-item-large">
+                            <div class="stat-number-large">2</div>
+                            <div class="stat-label-large">Tahun Pengalaman</div>
+                        </div>
+                        <div class="stat-item-large">
+                            <div class="stat-number-large">300+</div>
+                            <div class="stat-label-large">Kelas Dijalankan</div>
+                        </div>
+                        <div class="stat-item-large">
+                            <div class="stat-number-large">20+</div>
+                            <div class="stat-label-large">Pelajar Diajar</div>
+                        </div>
                     </div>
 
-                    <button type="submit" class="btn" style="width: 100%; margin-top: 0.8rem; padding: 14px;">Hantar Permohonan ke WhatsApp 📲</button>
-                </form>
+                    <div class="tutor-bio-full">
+                        <h3><i class="fas fa-lightbulb"></i> Mengenai Saya</h3>
+                        <p>Saya merupakan graduan Ijazah Sarjana Muda Kejuruteraan Elektronik Bioperubatan (Kepujian) dari UniMAP. Sebelum beralih ke bidang pendidikan, saya berpengalaman sebagai <strong>Software Engineer (Artificial Intelligence)</strong> di sebuah syarikat teknologi terkemuka dan juga sebagai <strong>Mechanical and Electrical Engineer</strong>.</p>
+                        <p>Pengalaman industri ini membolehkan saya mengajar subjek teknikal dengan lebih praktikal dan mendalam. Saya percaya setiap pelajar mempunyai potensi untuk cemerlang jika diberikan pendekatan yang betul dan relevan dengan dunia sebenar.</p>
+                    </div>
+                </div>
+
+                <!-- Metodologi Section (di page tutor) -->
+                <div class="methodology-section">
+                    <div class="section-title">
+                        <h3>Pendekatan Pengajaran</h3>
+                        <p>Kaedah terbukti berkesan untuk pembelajaran bermakna</p>
+                    </div>
+                    
+                    <div class="method-grid">
+                        <div class="method-card">
+                            <div class="method-icon">📖</div>
+                            <h4>Teknik Penceritaan</h4>
+                            <p>Mengaitkan latihan dengan contoh dunia pekerjaan sebenar supaya pelajar nampak 'kepentingan' apa yang dipelajari.</p>
+                        </div>
+                        <div class="method-card">
+                            <div class="method-icon">💻</div>
+                            <h4>Live Coding & Visual</h4>
+                            <p>Tunjuk cara step-by-step untuk jalan kira Matematik dan Live Coding untuk subjek Sains Komputer.</p>
+                        </div>
+                        <div class="method-card">
+                            <div class="method-icon">🎯</div>
+                            <h4>Latih Tubi Berperingkat</h4>
+                            <p>Menyediakan latihan dari tahap asas ke tahap KBAT bagi membina keyakinan pelajar mengikut rentak mereka sendiri.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cta-section">
+                    <a href="#" onclick="showPage('daftar')" class="btn btn-large">
+                        <i class="fas fa-calendar-check"></i> Daftar Kelas dengan Cikgu Dayang
+                    </a>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
+
+    <!-- DAFTAR PAGE -->
+    <div id="daftar-page" class="page">
+        <section class="section" style="padding-top: 100px; background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);">
+            <div class="container">
+                <div class="form-container">
+                    <div class="section-title">
+                        <h3>Daftar Kelas DALe EduHub</h3>
+                        <p>Lengkapi borang di bawah, kami akan menghubungi anda</p>
+                    </div>
+                    
+                    <!-- Loading overlay -->
+                    <div id="formLoading" class="loading-container" style="display: none;">
+                        <div class="spinner"></div>
+                        <p>Memproses pendaftaran...</p>
+                    </div>
+                    
+                    <form id="whatsappForm">
+                        <div class="form-group">
+                            <label>Nama Ibu/Bapa Penjaga</label>
+                            <input type="text" id="parentName" placeholder="Masukkan nama ibu/bapa">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Nama Penuh Pelajar <span class="required-badge">*</span></label>
+                            <input type="text" id="stuName" placeholder="Masukkan nama pelajar" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Emel Ibu/Bapa Penjaga <span class="required-badge">*</span></label>
+                            <input type="email" id="parentEmail" placeholder="contoh@email.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>No. Telefon Penjaga <span class="required-badge">*</span></label>
+                            <input type="tel" id="parentPhone" placeholder="Contoh: 0123456789" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Tingkatan <span class="required-badge">*</span></label>
+                                <select id="stuLevel" required>
+                                    <option value="">Pilih</option>
+                                    <option value="Tingkatan 1">Tingkatan 1</option>
+                                    <option value="Tingkatan 2">Tingkatan 2</option>
+                                    <option value="Tingkatan 3">Tingkatan 3</option>
+                                    <option value="Tingkatan 4">Tingkatan 4</option>
+                                    <option value="Tingkatan 5">Tingkatan 5</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Jenis Kelas <span class="required-badge">*</span></label>
+                                <select id="classType" required>
+                                    <option value="">Pilih</option>
+                                    <option value="Kelas Sebenar">Kelas Sebenar</option>
+                                    <option value="Kelas Percubaan">Kelas Percubaan</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Subjek <span class="required-badge">*</span></label>
+                            <select id="stuSubject" required>
+                                <option value="">Sila Pilih Subjek</option>
+                                <option value="Matematik">Matematik</option>
+                                <option value="Asas Sains Komputer">Asas Sains Komputer</option>
+                                <option value="Sains Komputer">Sains Komputer</option>
+                                <option value="Bahasa Jepun">Bahasa Jepun</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Keputusan Peperiksaan Terakhir & Apa Yang Ingin Dicapai</label>
+                            <textarea id="stuMsg" rows="3" placeholder="Contoh: Dapat B dalam Matematik, ingin tingkatkan ke A. Target SPM 2025..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn submit-btn" id="submitBtn">
+                            <i class="fab fa-whatsapp"></i> Hantar Permohonan ke WhatsApp
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <!-- Footer -->
     <footer>
         <div class="footer-grid">
-            <div>
-                <h4>DALe EduHub</h4>
+            <div class="footer-col">
+                <img src="images/logo" alt="DALe EduHub" class="footer-logo">
                 <p>Pusat kecemerlangan akademik digital yang memfokuskan kepada pembangunan potensi pelajar melalui teknologi dan disiplin.</p>
-                <div style="margin-top: 12px; color: var(--accent); font-weight: 600;">Dream • Act • Learn</div>
+                <div class="footer-slogan">Dream • Act • Learn</div>
             </div>
-            <div>
+            <div class="footer-col">
                 <h4>Pautan Pantas</h4>
                 <ul>
-                    <li>Utama</li>
-                    <li>Yuran</li>
-                    <li>Testimoni</li>
-                    <li>Tutor</li>
-                    <li>Daftar</li>
+                    <li><a href="#" onclick="showPage('home')">Utama</a></li>
+                    <li><a href="#" onclick="showPage('program')">Yuran</a></li>
+                    <li><a href="#" onclick="showPage('testimoni')">Testimoni</a></li>
+                    <li><a href="#" onclick="showPage('tutor')">Tutor</a></li>
+                    <li><a href="#" onclick="showPage('daftar')">Daftar</a></li>
                 </ul>
             </div>
-            <div>
+            <div class="footer-col">
                 <h4>Hubungi Kami</h4>
-                <p>Email: dygamd.work@gmail.com<br>WhatsApp: +6012-825 8869</p>
+                <p><i class="fas fa-envelope"></i> dygamd.work@gmail.com</p>
+                <p><i class="fab fa-whatsapp"></i> +6012-825 8869</p>
             </div>
         </div>
         <hr>
-        <p style="text-align: center; font-size: 0.7rem; opacity: 0.5;">&copy; 2026 DALe EduHub (Dayang Ahmad Learning Hub). Semua Hak Terpelihara.</p>
+        <p class="copyright">&copy; 2026 DALe EduHub. Semua Hak Terpelihara.</p>
     </footer>
 
-    <!-- Swiper JS -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script>
-        // Initialize Swiper - optimized for mobile
-        var swiper = new Swiper(".mySwiper", {
-            slidesPerView: 1,
-            spaceBetween: 12,
-            loop: true,
-            autoplay: {
-                delay: 4000,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true,
-            },
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-            breakpoints: {
-                640: {
-                    slidesPerView: 2,
-                },
-                1024: {
-                    slidesPerView: 3,
-                },
-            },
-        });
-
-        // WhatsApp Form
-        document.getElementById('whatsappForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const phoneNumber = "60128258869"; 
-
-            const parentName = document.getElementById('parentName').value;
-            const studentName = document.getElementById('stuName').value;
-            const parentEmail = document.getElementById('parentEmail').value;
-            const parentPhone = document.getElementById('parentPhone').value;
-            const level = document.getElementById('stuLevel').value;
-            const classType = document.getElementById('classType').value;
-            const subject = document.getElementById('stuSubject').value;
-            const message = document.getElementById('stuMsg').value;
-
-            let parentInfo = parentName ? `• Nama Ibu/Bapa: ${parentName}\n` : '';
-
-            const text = `Salam Cikgu Dayang, saya berminat untuk mendaftar di *DALe EduHub*.\n\n` +
-                         `*Butiran Pendaftaran:*\n` +
-                         parentInfo +
-                         `• Nama Pelajar: ${studentName}\n` +
-                         `• Emel: ${parentEmail}\n` +
-                         `• No Telefon: ${parentPhone}\n` +
-                         `• Tingkatan: ${level}\n` +
-                         `• Jenis Kelas: ${classType}\n` +
-                         `• Subjek: ${subject}\n` +
-                         `• Keputusan/Cita-cita: ${message || "Tiada"}\n\n` +
-                         `Mohon info lanjut. Terima kasih!`;
-
-            window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`, '_blank');
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
 </body>
 </html>
