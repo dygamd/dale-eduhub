@@ -281,24 +281,7 @@
         <p class="copyright">&copy; 2026 DALe EduHub. Semua Hak Terpelihara.</p>
     </footer>
 
-    <script>
-        // Mobile menu toggle
-        function toggleMobileMenu() {
-            const navLinks = document.querySelector('.nav-links');
-            if (navLinks) {
-                navLinks.classList.toggle('active');
-            }
-        }
-
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                const navLinks = document.querySelector('.nav-links');
-                if (navLinks && window.innerWidth <= 768) {
-                    navLinks.classList.remove('active');
-                }
-            });
-        });
-    </script>
+    <!-- Scripts -->
+    <script src="script/tutor-profile.js"></script>
 </body>
 </html>
