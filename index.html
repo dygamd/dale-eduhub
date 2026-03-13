@@ -3,40 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DALe EduHub</title>
-    
-    <!-- Favicon -->
+    <title>DALe EduHub | Dream • Act • Learn</title>
     <link rel="icon" type="image/png" href="images/logo.png">
-    
-    <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="style/style.css">
-    
-    <style>
-        /* Debug helper - akan tunjuk kalau ada problem */
-        .debug-error {
-            background: #ffebee;
-            color: #c62828;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px;
-            border-left: 4px solid #c62828;
-            font-family: monospace;
-        }
-    </style>
 </head>
 <body>
 
-    <!-- Toast notification -->
-    <div id="toast" class="toast"></div>
-
-    <!-- Navigation -->
     <header>
         <nav>
-            <a href="#home" class="logo">
+            <a href="index.html" class="logo">
                 <img src="images/logo.png" alt="DALe EduHub" class="logo-img" onerror="this.src='https://via.placeholder.com/45'">
                 <div class="logo-text">
                     <h1>DALe EduHub</h1>
@@ -44,25 +21,24 @@
                 </div>
             </a>
             <div class="nav-links">
-                <a href="#home">Utama</a>
+                <a href="index.html">Utama</a>
                 <a href="#program">Yuran</a>
-                <a href="#tutor">Tutor</a>
                 <a href="#daftar" class="btn-small">Daftar</a>
             </div>
             <div class="menu-icon" onclick="toggleMobileMenu()">☰</div>
         </nav>
     </header>
 
-    <!-- HOME SECTION -->
     <section id="home" class="hero">
         <div class="container">
             <h2>Membina Masa Depan <br><span style="color: var(--accent)">Melalui Inovasi Digital</span></h2>
             <p>Peneraju pendidikan dalam talian dengan integrasi Industry-Linked Learning untuk melahirkan generasi yang relevan dengan keperluan industri global.</p>
-            <a href="#program" class="btn">Lihat Program</a>
+            <div class="hero-btns">
+                <a href="#daftar" class="btn">Daftar Sekarang</a>
+            </div>
         </div>
     </section>
 
-    <!-- FEATURES SECTION -->
     <section class="section">
         <div class="container">
             <div class="section-title">
@@ -77,107 +53,28 @@
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">👩‍🏫</div>
-                    <h3>Tutor Berpengalaman</h3>
-                    <p>Ex-Software Engineer dengan pengalaman industri teknologi.</p>
+                    <h3>Pakar Industri</h3>
+                    <p>Dibimbing oleh bekas Software Engineer yang memahami keperluan pasaran kerja.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">📱</div>
-                    <h3>Fleksibel & Mudah</h3>
-                    <p>Kelas online melalui Google Meet, modul di Google Classroom.</p>
+                    <h3>Fleksibel & Moden</h3>
+                    <p>Ekosistem pembelajaran digital menggunakan Google Meet & Classroom.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- PROGRAM SECTION -->
-    <section id="program" class="section" style="background: #f1f5f9;">
-        <div class="container">
-            <div class="section-title">
-                <h2>Program & Yuran</h2>
-                <p>Pilih program yang sesuai dengan keperluan anda</p>
-            </div>
-            
-            <div class="pricing-grid">
-                <!-- Kelas Percubaan -->
-                <div class="pricing-card">
-                    <h3>Kelas Percubaan</h3>
-                    <div class="price">RM25 <span style="font-size: 1rem;">/sesi</span></div>
-                    <ul class="feature-list">
-                        <li>30 minit/sesi</li>
-                        <li>Untuk semua subjek</li>
-                        <li>Analisis asas daripada tutor</li>
-                    </ul>
-                    <a href="#daftar" class="btn btn-outline pricing-btn">Pilih Trial</a>
-                </div>
-
-                <!-- Menengah Rendah -->
-                <div class="pricing-card">
-                    <h3>Menengah Rendah</h3>
-                    <p class="level-tag">Tingkatan 1 - 3</p>
-                    <div class="price">
-                        <span class="original-price">RM220</span> RM200 <span style="font-size: 1rem;">/subjek</span>
-                        <span class="discount-badge">10% off</span>
-                    </div>
-                    <div class="subject-tags">
-                        <span class="subject-tag">Matematik</span>
-                        <span class="subject-tag">Asas Sains Komputer</span>
-                        <span class="subject-tag">Bahasa Jepun</span>
-                    </div>
-                    <ul class="feature-list">
-                        <li>4 kelas sebulan (1 jam/sesi)</li>
-                        <li>Modul disediakan</li>
-                        <li>Penilaian setiap hujung bulan</li>
-                    </ul>
-                    <a href="#daftar" class="btn pricing-btn">Daftar Sekarang</a>
-                </div>
-
-                <!-- Menengah Atas -->
-                <div class="pricing-card">
-                    <h3>Menengah Atas</h3>
-                    <p class="level-tag">Tingkatan 4 - 5</p>
-                    <div class="price">
-                        <span class="original-price">RM240</span> RM220 <span style="font-size: 1rem;">/subjek</span>
-                        <span class="discount-badge">10% off</span>
-                    </div>
-                    <div class="subject-tags">
-                        <span class="subject-tag">Matematik</span>
-                        <span class="subject-tag">Sains Komputer</span>
-                        <span class="subject-tag">Bahasa Jepun</span>
-                    </div>
-                    <ul class="feature-list">
-                        <li>4 kelas sebulan (1 jam/sesi)</li>
-                        <li>Modul disediakan</li>
-                        <li>Penilaian setiap hujung bulan</li>
-                        <li>Fokus SPM & pengenalan industri</li>
-                    </ul>
-                    <a href="#daftar" class="btn pricing-btn">Daftar Sekarang</a>
-                </div>
-            </div>
-            
-            <div class="promo-banner">
-                <p>🎉 PROMOSI TERHAD: Diskaun 10% untuk semua pakej!</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- TESTIMONI SECTION -->
-    <section class="section testimonials-section">
+    <section id="testimoni" class="section testimonials-section" style="background: #f8fafc;">
         <div class="container">
             <div class="section-title">
                 <h2>Apa Kata Mereka?</h2>
                 <p>Maklum balas ikhlas daripada pelajar dan ibu bapa</p>
             </div>
-            
-            <!-- Loading indicator -->
             <div id="testimoniLoading" class="loading-container">
                 <div class="spinner"></div>
                 <p>Memuatkan testimoni...</p>
             </div>
-            
-            <!-- Debug container - akan tunjuk error kalau ada -->
-            <div id="testimoniDebug" style="display: none;" class="debug-error"></div>
-            
-            <!-- Swiper Carousel -->
             <div class="swiper mySwiper" id="testimoniSwiper" style="display: none;">
                 <div class="swiper-wrapper" id="testimoniWrapper"></div>
                 <div class="swiper-pagination"></div>
@@ -185,130 +82,78 @@
         </div>
     </section>
 
-    <!-- TUTOR SECTION -->
-    <section id="tutor" class="section">
+    <section id="program" class="section">
         <div class="container">
             <div class="section-title">
-                <h2>Tutor Kami</h2>
-                <p>Berkenalan dengan tenaga pengajar profesional</p>
+                <h2>Program & Yuran</h2>
+                <p>Pilih program yang sesuai dengan keperluan anda</p>
             </div>
-            
-            <div class="tutor-section">
-                <div class="tutor-header">
-                    <div class="tutor-avatar">
-                        <img src="images/profile.png" alt="Cikgu Dayang Ahmad" onerror="this.src='https://via.placeholder.com/180'">
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Kelas Percubaan</h3>
+                    <div class="price">RM25 <span style="font-size: 1rem;">/sesi</span></div>
+                    <ul class="feature-list">
+                        <li>30 minit/sesi</li>
+                        <li>Semua subjek</li>
+                        <li>Analisis tahap pelajar</li>
+                    </ul>
+                    <a href="#daftar" class="btn btn-outline pricing-btn">Pilih Trial</a>
+                </div>
+                <div class="pricing-card highlighted">
+                    <h3>Menengah Rendah</h3>
+                    <p class="level-tag">Tingkatan 1 - 3</p>
+                    <div class="price">RM200 <span style="font-size: 1rem;">/subjek</span></div>
+                    <div class="subject-tags">
+                        <span class="subject-tag">Matematik</span>
+                        <span class="subject-tag">ASK</span>
+                        <span class="subject-tag">Jepun</span>
                     </div>
-                    <div class="tutor-info">
-                        <h2>Cikgu Dayang Ahmad</h2>
-                        <div class="tutor-title">Ex-Software Engineer (AI) | Tutor STEM & Bahasa Jepun</div>
-                        
-                        <div class="badges">
-                            <span class="badge"><i class="fas fa-trophy"></i> A Matematik SPM 2016</span>
-                            <span class="badge"><i class="fas fa-trophy"></i> A Bahasa Jepun SPM 2016</span>
-                        </div>
-                        
-                        <div class="languages">
-                            <span class="lang-badge"><i class="fas fa-globe"></i> Melayu</span>
-                            <span class="lang-badge"><i class="fas fa-globe"></i> English</span>
-                            <span class="lang-badge"><i class="fas fa-globe"></i> Jepun</span>
-                        </div>
+                    <a href="#daftar" class="btn pricing-btn">Daftar Sekarang</a>
+                </div>
+                <div class="pricing-card highlighted">
+                    <h3>Menengah Atas</h3>
+                    <p class="level-tag">Tingkatan 4 - 5</p>
+                    <div class="price">RM220 <span style="font-size: 1rem;">/subjek</span></div>
+                    <div class="subject-tags">
+                        <span class="subject-tag">Matematik</span>
+                        <span class="subject-tag">Sains Komputer</span>
+                        <span class="subject-tag">Jepun</span>
                     </div>
+                    <a href="#daftar" class="btn pricing-btn">Daftar Sekarang</a>
                 </div>
-
-                <div class="tutor-quote">
-                    <i class="fas fa-quote-left"></i>
-                    "Matlamat saya bukan sekadar mengajar untuk peperiksaan, tetapi membina logik dan kemahiran yang boleh diguna pakai dalam kerjaya masa hadapan."
-                </div>
-
-                <div class="tutor-stats">
-                    <div class="stat-item">
-                        <div class="stat-number">2</div>
-                        <div class="stat-label">Tahun Pengalaman</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">300+</div>
-                        <div class="stat-label">Kelas Dijalankan</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">20+</div>
-                        <div class="stat-label">Pelajar Diajar</div>
-                    </div>
-                </div>
-
-                <div class="tutor-bio">
-                    <h3><i class="fas fa-lightbulb"></i> Mengenai Saya</h3>
-                    <p>Saya merupakan graduan Ijazah Sarjana Muda Kejuruteraan Elektronik Bioperubatan (Kepujian) dari UniMAP. Sebelum beralih ke bidang pendidikan, saya berpengalaman sebagai <strong>Software Engineer (Artificial Intelligence)</strong> di sebuah syarikat teknologi terkemuka dan juga sebagai <strong>Mechanical and Electrical Engineer</strong>.</p>
-                    <p>Pengalaman industri ini membolehkan saya mengajar subjek teknikal dengan lebih praktikal dan mendalam. Saya percaya setiap pelajar mempunyai potensi untuk cemerlang jika diberikan pendekatan yang betul dan relevan dengan dunia sebenar.</p>
-                </div>
-            </div>
-
-            <!-- Methodology Section -->
-            <h2 style="text-align: center; margin: 60px 0 30px;">Pendekatan Pengajaran</h2>
-            <div class="method-grid">
-                <div class="method-card">
-                    <div class="method-icon">📖</div>
-                    <h3>Teknik Penceritaan</h3>
-                    <p>Mengaitkan latihan dengan contoh dunia pekerjaan sebenar supaya pelajar nampak 'kepentingan' apa yang dipelajari.</p>
-                </div>
-                <div class="method-card">
-                    <div class="method-icon">💻</div>
-                    <h3>Live Coding & Visual</h3>
-                    <p>Tunjuk cara step-by-step untuk jalan kira Matematik dan Live Coding untuk subjek Sains Komputer.</p>
-                </div>
-                <div class="method-card">
-                    <div class="method-icon">🎯</div>
-                    <h3>Latih Tubi Berperingkat</h3>
-                    <p>Menyediakan latihan dari tahap asas ke tahap KBAT bagi membina keyakinan pelajar mengikut rentak mereka sendiri.</p>
-                </div>
-            </div>
-            
-            <div style="text-align: center; margin-top: 50px;">
-                <a href="#daftar" class="btn btn-large">
-                    <i class="fas fa-calendar-check"></i> Daftar Kelas dengan Cikgu Dayang
-                </a>
             </div>
         </div>
     </section>
 
-    <!-- DAFTAR SECTION -->
-    <section id="daftar" class="section form-section">
+    <section id="daftar" class="section form-section" style="background: #f1f5f9;">
         <div class="container">
             <div class="form-container">
                 <div class="section-title">
-                    <h2>Daftar Kelas DALe EduHub</h2>
-                    <p>Lengkapi borang di bawah, kami akan menghubungi anda</p>
+                    <h2>Daftar DALe EduHub</h2>
+                    <p>Lengkapi borang dan kami akan WhatsApp anda segera.</p>
                 </div>
-                
-                <!-- Loading overlay -->
-                <div id="formLoading" class="loading-container" style="display: none;">
-                    <div class="spinner"></div>
-                    <p>Memproses pendaftaran...</p>
-                </div>
-                
                 <form id="whatsappForm">
                     <div class="form-group">
                         <label>Nama Ibu/Bapa Penjaga</label>
-                        <input type="text" id="parentName" placeholder="Masukkan nama ibu/bapa">
+                        <input type="text" id="parentName" placeholder="Masukkan nama" required>
                     </div>
-
                     <div class="form-group">
-                        <label>Nama Penuh Pelajar <span class="required-badge">*</span></label>
+                        <label>Nama Penuh Pelajar *</label>
                         <input type="text" id="stuName" placeholder="Masukkan nama pelajar" required>
                     </div>
-
-                    <div class="form-group">
-                        <label>Emel Ibu/Bapa Penjaga <span class="required-badge">*</span></label>
-                        <input type="email" id="parentEmail" placeholder="contoh@email.com" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>No. Telefon Penjaga <span class="required-badge">*</span></label>
-                        <input type="tel" id="parentPhone" placeholder="Contoh: 0123456789" required>
-                    </div>
-
                     <div class="form-row">
                         <div class="form-group">
-                            <label>Tingkatan <span class="required-badge">*</span></label>
+                            <label>No. Telefon *</label>
+                            <input type="tel" id="parentPhone" placeholder="0123456789" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Emel *</label>
+                            <input type="email" id="parentEmail" placeholder="email@gmail.com" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Tingkatan *</label>
                             <select id="stuLevel" required>
                                 <option value="">Pilih</option>
                                 <option value="Tingkatan 1">Tingkatan 1</option>
@@ -319,67 +164,27 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Jenis Kelas <span class="required-badge">*</span></label>
-                            <select id="classType" required>
-                                <option value="">Pilih</option>
-                                <option value="Kelas Sebenar">Kelas Sebenar</option>
-                                <option value="Kelas Percubaan">Kelas Percubaan</option>
+                            <label>Subjek *</label>
+                            <select id="stuSubject" required>
+                                <option value="">Pilih Subjek</option>
+                                <option value="Matematik">Matematik</option>
+                                <option value="Sains Komputer">Sains Komputer</option>
+                                <option value="Bahasa Jepun">Bahasa Jepun</option>
                             </select>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label>Subjek <span class="required-badge">*</span></label>
-                        <select id="stuSubject" required>
-                            <option value="">Sila Pilih Subjek</option>
-                            <option value="Matematik">Matematik</option>
-                            <option value="Asas Sains Komputer">Asas Sains Komputer</option>
-                            <option value="Sains Komputer">Sains Komputer</option>
-                            <option value="Bahasa Jepun">Bahasa Jepun</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Keputusan Peperiksaan Terakhir & Apa Yang Ingin Dicapai</label>
-                        <textarea id="stuMsg" rows="3" placeholder="Contoh: Dapat B dalam Matematik, ingin tingkatkan ke A. Target SPM 2025..."></textarea>
-                    </div>
-
                     <button type="submit" class="btn submit-btn" id="submitBtn">
-                        <i class="fab fa-whatsapp"></i> Hantar Permohonan ke WhatsApp
+                        <i class="fab fa-whatsapp"></i> Hantar ke WhatsApp
                     </button>
                 </form>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <img src="images/logo.png" alt="DALe EduHub" class="footer-logo" onerror="this.src='https://via.placeholder.com/70'">
-                <p>Pusat kecemerlangan akademik digital yang memfokuskan kepada pembangunan potensi pelajar melalui teknologi dan disiplin.</p>
-                <div class="footer-slogan">Dream • Act • Learn</div>
-            </div>
-            <div class="footer-col">
-                <h4>Pautan Pantas</h4>
-                <ul>
-                    <li><a href="#home">Utama</a></li>
-                    <li><a href="#program">Yuran</a></li>
-                    <li><a href="#tutor">Tutor</a></li>
-                    <li><a href="#daftar">Daftar</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Hubungi Kami</h4>
-                <p><i class="fas fa-envelope"></i> dygamd.work@gmail.com</p>
-                <p><i class="fab fa-whatsapp"></i> +6012-825 8869</p>
-            </div>
-        </div>
-        <hr>
-        <p class="copyright">&copy; 2026 DALe EduHub. Semua Hak Terpelihara.</p>
+        <p>&copy; 2026 DALe EduHub. Dream • Act • Learn</p>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.7/dist/umd/supabase.js"></script>
     <script src="script/script.js"></script>
