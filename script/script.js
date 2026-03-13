@@ -1,31 +1,37 @@
-// ALERT PERTAMA: Untuk pastikan fail ini dibuka
-alert("Sistem sedang dimulakan...");
+// ALERT 1: Ujian fail script berjaya dipanggil
+alert("Script Bermula!");
 
 const SB_URL = 'https://ktfhmqvuhqlzhkotorsi.supabase.co';
-const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt0ZmhtcXZ1aHFsemhrb3RvcnNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTE2OTI2MTAsImV4cCI6MjAyNzI2ODYxMH0.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt0ZmhtcXZ1aHFsemhrb3RvcnNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyNTY3NTQsImV4cCI6MjA4ODgzMjc1NH0.yIqlOSSz_40EuFJV2DaLMIaD5Ou6A9ycMQMAxrMohyA';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt0ZmhtcXZ1aHFsemhrb3RvcnNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyNTY3NTQsImV4cCI6MjA4ODgzMjc1NH0.yIqlOSSz_40EuFJV2DaLMIaD5Ou6A9ycMQMAxrMohyA';
 
-// Fungsi untuk panggil data
-async function initTestimonials() {
+let supabase;
+
+try {
+    supabase = window.supabase.createClient(SB_URL, SB_KEY);
+    alert("Supabase Berjaya Diaktifkan!");
+} catch (e) {
+    alert("Gagal aktifkan Supabase: " + e.message);
+}
+
+async function loadData() {
     const wrapper = document.getElementById('testimoniWrapper');
     const loading = document.getElementById('testimoniLoading');
 
     try {
-        // Cek jika library Supabase wujud
-        const supabase = window.supabase.createClient(SB_URL, SB_KEY);
-        
         const { data, error } = await supabase
             .from('testimonials')
-            .select('*');
+            .select('*')
+            .eq('active', true);
 
         if (error) {
-            alert("Ralat Supabase: " + error.message);
+            alert("Ralat Table: " + error.message);
             return;
         }
 
         if (data && data.length > 0) {
-            let content = "";
+            let html = "";
             data.forEach(t => {
-                content += `
+                html += `
                 <div class="swiper-slide">
                     <div class="testi-card">
                         <p>"${t.message}"</p>
@@ -34,37 +40,42 @@ async function initTestimonials() {
                     </div>
                 </div>`;
             });
-            wrapper.innerHTML = content;
+            wrapper.innerHTML = html;
             
             if (loading) loading.style.display = 'none';
             document.getElementById('testimoniSwiper').style.display = 'block';
 
-            // Init Swiper
             new Swiper('.mySwiper', {
                 slidesPerView: 1,
-                spaceBetween: 20,
-                loop: true,
+                spaceBetween: 10,
                 pagination: { el: '.swiper-pagination' },
-                breakpoints: { 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+                breakpoints: { 768: { slidesPerView: 2 } }
             });
+            alert("Testimoni Berjaya Dimuatkan!");
         } else {
-            alert("Berjaya sambung, tapi data kosong.");
+            alert("Data kosong. Sila semak table testimonials di Supabase.");
+            if (loading) loading.style.display = 'none';
         }
     } catch (err) {
-        alert("Ralat Kod: " + err.message);
+        alert("Ralat Proses: " + err.message);
     }
 }
 
-// Form WhatsApp
-document.getElementById('whatsappForm').onsubmit = async function(e) {
-    e.preventDefault();
-    alert("Menghantar data...");
-    
-    // Logik hantar WhatsApp ringkas
-    const nama = document.getElementById('stuName').value;
-    const msg = `Daftar DALe EduHub: ${nama}`;
-    window.location.href = `https://wa.me/60128258869?text=${encodeURIComponent(msg)}`;
-};
+// Logik Form WhatsApp
+const myForm = document.getElementById('whatsappForm');
+if (myForm) {
+    myForm.onsubmit = function(e) {
+        e.preventDefault();
+        const nama = document.getElementById('stuName').value;
+        const subjek = document.getElementById('stuSubject').value;
+        
+        const teks = `Halo Cikgu Dayang! Saya nak daftar:%0A%0A` +
+                     `Nama: ${nama}%0ASubjek: ${subjek}`;
+        
+        alert("Membuka WhatsApp...");
+        window.location.href = `https://wa.me/60128258869?text=${teks}`;
+    };
+}
 
-// Jalankan fungsi
-window.onload = initTestimonials;
+// Jalankan loadData bila semua fail siap
+window.onload = loadData;
