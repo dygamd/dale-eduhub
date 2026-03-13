@@ -52,12 +52,30 @@
     gap: 40px;
     margin-bottom: 40px;
     border: 1px solid var(--gray-light);
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: all 0.3s;
 }
 
 .tutor-header-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-xl);
+    border-color: var(--accent);
+}
+
+.tutor-header-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    border-radius: 0 0 40px 40px;
+}
+
+.tutor-header-card:hover::after {
+    transform: scaleX(1);
 }
 
 .tutor-avatar-wrapper {
@@ -71,11 +89,12 @@
     overflow: hidden;
     border: 4px solid var(--accent);
     box-shadow: var(--shadow-lg);
-    transition: transform 0.3s;
+    transition: all 0.3s;
 }
 
 .tutor-avatar:hover {
     transform: scale(1.05);
+    border-color: var(--primary);
 }
 
 .tutor-avatar img {
@@ -95,6 +114,11 @@
     color: var(--primary-dark);
     margin-bottom: 10px;
     line-height: 1.2;
+    transition: color 0.3s;
+}
+
+.tutor-header-card:hover .tutor-name {
+    color: var(--primary);
 }
 
 .tutor-tagline {
@@ -127,19 +151,20 @@
 .tutor-badges .badge:hover {
     background: var(--primary);
     color: white;
-    transform: translateY(-2px);
+    transform: translateY(-2px) scale(1.05);
     box-shadow: var(--shadow);
 }
 
 .tutor-badges .badge i {
     color: var(--accent);
+    transition: color 0.3s;
 }
 
 .tutor-badges .badge:hover i {
     color: white;
 }
 
-/* ==================== FOUNDER BADGE KHAS ==================== */
+/* Founder Badge */
 .founder-badge {
     background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
     color: white !important;
@@ -158,12 +183,7 @@
     width: 200%;
     height: 200%;
     background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-    animation: shine 3s infinite;
-}
-
-@keyframes shine {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    animation: rotate 3s linear infinite;
 }
 
 .founder-badge i {
@@ -172,12 +192,7 @@
     animation: bounce 2s infinite;
 }
 
-@keyframes bounce {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-}
-
-/* ==================== LANGUAGES SECTION ==================== */
+/* Languages Section */
 .languages-section {
     display: flex;
     flex-wrap: wrap;
@@ -210,13 +225,14 @@
 .language-item i {
     color: var(--accent);
     font-size: 1.1rem;
+    transition: color 0.3s;
 }
 
 .language-item:hover i {
     color: white;
 }
 
-/* ==================== TUTOR STATS MINI ==================== */
+/* Tutor Stats Mini */
 .tutor-stats-mini {
     display: flex;
     gap: 30px;
@@ -255,7 +271,7 @@
     transition: color 0.3s;
 }
 
-/* ==================== CONTENT CARDS ==================== */
+/* Content Cards */
 .content-card {
     background: white;
     border-radius: 30px;
@@ -263,14 +279,15 @@
     box-shadow: var(--shadow);
     margin-bottom: 30px;
     border: 1px solid var(--gray-light);
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: all 0.3s;
     position: relative;
     overflow: hidden;
 }
 
 .content-card:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--accent);
 }
 
 .content-card::after {
@@ -320,7 +337,84 @@
     border-radius: 2px;
 }
 
-/* ==================== PROFESSIONAL TIMELINE ==================== */
+/* Founder Card */
+.founder-card {
+    background: linear-gradient(135deg, #ffffff, #fff7e6);
+    border: 2px solid var(--accent);
+    position: relative;
+    overflow: hidden;
+    margin-top: 30px;
+}
+
+.founder-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.08) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+}
+
+.founder-message {
+    position: relative;
+    z-index: 2;
+    padding: 20px 0;
+}
+
+.founder-quote-icon {
+    font-size: 3rem;
+    color: var(--accent);
+    opacity: 0.2;
+    margin-bottom: 10px;
+}
+
+.founder-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--dark);
+    margin-bottom: 20px;
+    padding-left: 20px;
+    border-left: 4px solid var(--accent);
+    font-style: italic;
+}
+
+.founder-text:last-of-type {
+    margin-bottom: 30px;
+}
+
+.founder-signature {
+    text-align: right;
+    padding: 20px;
+    background: rgba(245, 158, 11, 0.05);
+    border-radius: 20px;
+    margin-top: 20px;
+    border: 1px dashed var(--accent);
+}
+
+.founder-signature i {
+    color: var(--accent);
+    font-size: 1.5rem;
+    margin-right: 10px;
+    animation: bounce 2s infinite;
+}
+
+.founder-signature span {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.founder-signature small {
+    font-size: 0.95rem;
+    color: var(--gray);
+    font-style: italic;
+}
+
+/* Professional Timeline */
 .professional-timeline {
     display: flex;
     flex-direction: column;
@@ -417,12 +511,7 @@
     animation: pulse 2s infinite;
 }
 
-@keyframes pulse {
-    0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
-    50% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.8); }
-}
-
-/* ==================== PHILOSOPHY CARD ==================== */
+/* Philosophy Card */
 .philosophy-card {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     color: white;
@@ -474,7 +563,7 @@
     content: '— ';
 }
 
-/* ==================== METHODOLOGY GRID ==================== */
+/* Methodology Grid */
 .methodology-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -495,7 +584,7 @@
 
 .methodology-card:hover {
     transform: translateY(-8px) scale(1.02);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-xl);
     border-color: var(--accent);
 }
 
@@ -527,11 +616,12 @@
     color: white;
     font-size: 2rem;
     transform: rotate(-5deg);
-    transition: transform 0.3s;
+    transition: all 0.3s;
 }
 
 .methodology-card:hover .method-icon-wrapper {
     transform: rotate(0deg) scale(1.1);
+    box-shadow: var(--shadow);
 }
 
 .methodology-card h3 {
@@ -558,7 +648,7 @@
     align-items: center;
     gap: 10px;
     font-size: 0.95rem;
-    transition: transform 0.3s;
+    transition: all 0.3s;
 }
 
 .method-features li:hover {
@@ -569,9 +659,14 @@
 .method-features li i {
     color: var(--accent);
     font-size: 1rem;
+    transition: transform 0.3s;
 }
 
-/* ==================== SUBJECTS GRID ==================== */
+.method-features li:hover i {
+    transform: scale(1.2);
+}
+
+/* Subjects Grid */
 .subjects-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -608,7 +703,7 @@
     color: white;
 }
 
-/* ==================== ACHIEVEMENT CARD ==================== */
+/* Achievement Card */
 .achievement-card {
     background: linear-gradient(135deg, #fef3c7, #fde68a);
     border: 2px solid var(--accent);
@@ -653,7 +748,7 @@
     color: white;
 }
 
-/* ==================== CTA SECTION ==================== */
+/* CTA Section */
 .cta-section {
     text-align: center;
     margin-top: 60px;
@@ -692,24 +787,171 @@
     z-index: 2;
 }
 
-/* ==================== ANIMATIONS ==================== */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* ==================== FOOTER (SAMA DENGAN LANDING PAGE) ==================== */
+footer {
+    background: linear-gradient(135deg, var(--dark) 0%, #0f172a 100%);
+    color: var(--white);
+    padding: 60px 1rem 30px;
+    position: relative;
+    overflow: hidden;
+    margin-top: 60px;
 }
 
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
 }
 
-/* ==================== RESPONSIVE DESIGN ==================== */
+footer::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--accent), var(--primary));
+    animation: slide 3s linear infinite;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    max-width: var(--container-width);
+    margin: 0 auto 40px;
+    position: relative;
+    z-index: 1;
+}
+
+.footer-col {
+    transition: transform 0.3s;
+}
+
+.footer-col:hover {
+    transform: translateY(-5px);
+}
+
+.footer-col h4 {
+    color: white;
+    margin-bottom: 1.2rem;
+    font-size: 1.1rem;
+    position: relative;
+    display: inline-block;
+}
+
+.footer-col h4::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.3s;
+}
+
+.footer-col:hover h4::after {
+    width: 100%;
+}
+
+.footer-logo {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    margin-bottom: 20px;
+    background: white;
+    border-radius: 15px;
+    padding: 8px;
+    transition: all 0.3s;
+}
+
+.footer-logo:hover {
+    transform: scale(1.1) rotate(360deg);
+    box-shadow: var(--shadow);
+}
+
+.footer-col p {
+    color: #94a3b8;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 15px;
+    transition: color 0.3s;
+}
+
+.footer-col:hover p {
+    color: #cbd5e1;
+}
+
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col ul li {
+    margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+    display: inline-block;
+}
+
+.footer-col ul li a:hover {
+    color: var(--accent);
+    transform: translateX(8px);
+}
+
+.footer-slogan {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-top: 20px;
+    animation: pulse 2s infinite;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.social-links a {
+    color: #94a3b8;
+    font-size: 1.2rem;
+    transition: all 0.3s;
+    display: inline-block;
+}
+
+.social-links a:hover {
+    color: var(--accent);
+    transform: translateY(-5px) scale(1.2);
+}
+
+.copyright {
+    text-align: center;
+    font-size: 0.9rem;
+    opacity: 0.5;
+    margin-top: 30px;
+    position: relative;
+    z-index: 1;
+}
+
+hr {
+    opacity: 0.1;
+    margin-bottom: 25px;
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #94a3b8, transparent);
+}
+
+/* ==================== RESPONSIVE ==================== */
 @media (max-width: 1024px) {
     .tutor-header-card {
         grid-template-columns: 1fr;
@@ -729,6 +971,10 @@
 
     .section-main-title {
         font-size: 2rem;
+    }
+    
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -823,6 +1069,20 @@
         font-size: 1rem;
         padding: 15px 30px;
     }
+    
+    .footer-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .footer-col h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
 }
 
 @media (max-width: 480px) {
@@ -887,26 +1147,5 @@
     .achievement {
         padding: 12px 20px;
         font-size: 0.95rem;
-    }
-}
-
-/* ==================== PRINT STYLES ==================== */
-@media print {
-    .page-hero,
-    .cta-section,
-    .btn {
-        background: none;
-        color: black;
-        border: 1px solid #ccc;
-    }
-
-    .tutor-header-card,
-    .content-card {
-        box-shadow: none;
-        border: 1px solid #ccc;
-    }
-
-    .no-print {
-        display: none;
     }
 }
