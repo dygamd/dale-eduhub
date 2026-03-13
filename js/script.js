@@ -1,7 +1,8 @@
 // ==================== SUPABASE CONFIG ====================
+// Guna Publishable Key yang anda beri
 const SUPABASE_URL = 'https://ktfhmqvuhqlzhkotorsi.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_kOz2lNp6289X7bajR5qmTw_Q1_Vh1zf';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_kOz2lNp6289X7bajR5qmTw_Q1_Vh1zf';
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
 // ==================== MOBILE MENU ====================
 window.toggleMobileMenu = function() {
@@ -25,9 +26,9 @@ function showToast(message, type = 'success') {
     }, 3000);
 }
 
-// ==================== LOAD TESTIMONIALS ====================
+// ==================== LOAD TESTIMONIALS FROM SUPABASE ====================
 async function loadTestimonials() {
-    console.log('Loading testimonials...');
+    console.log('Loading testimonials from Supabase...');
     
     const loading = document.getElementById('testimoniLoading');
     const swiper = document.getElementById('testimoniSwiper');
@@ -35,35 +36,77 @@ async function loadTestimonials() {
     
     if (!wrapper) return;
     
-    // Dummy data - confirm jalan
-    const testimonials = [
+    try {
+        // Try to fetch from Supabase - ambil yang active = true
+        const { data: testimonials, error } = await supabase
+            .from('testimonials')
+            .select('*')
+            .eq('active', true)
+            .order('id', { ascending: true });
+
+        if (error) {
+            console.error('Supabase error:', error);
+            showToast('Gagal memuatkan testimoni dari database', 'error');
+            useDummyTestimonials();
+            return;
+        }
+
+        if (testimonials && testimonials.length > 0) {
+            console.log(`Loaded ${testimonials.length} testimonials from Supabase`);
+            renderTestimonials(testimonials);
+        } else {
+            console.log('No testimonials in Supabase, using dummy data');
+            useDummyTestimonials();
+        }
+    } catch (error) {
+        console.error('Error loading testimonials:', error);
+        useDummyTestimonials();
+    }
+}
+
+function useDummyTestimonials() {
+    const dummyTestimonials = [
         {
             name: "Cik Syuhada",
+            role: "Pelajar",
             subject: "Matematik (Menengah Atas)",
             message: "Kelas dengan cikgu Dayang sangat okay. Cikgu tak berat mulut untuk ulang semula kalau saya tak faham. Cikgu pun ajar perlahan tak terlalu laju."
         },
         {
             name: "Encik Azimy",
+            role: "Ibu Bapa",
             subject: "Sains Komputer",
             message: "Sebelum ini, anak lelaki saya pernah belajar dengan cikgu Dayang bagi kelas intensif sebelum SPM. Kali ini, anak perempuan saya pulak yang menjadi murid kepada cikgu Dayang. Alhamdulilah, kedua-dua anak saya okay dan faham dengan kelas cikgu Dayang."
         },
         {
             name: "Puan Basyirah",
+            role: "Ibu Bapa",
             subject: "Matematik (Menengah Rendah)",
             message: "Terima kasih cikgu Dayang kerana sangat sabar dalam mengajar anak saya yang pendiam."
         },
         {
             name: "Puan Aiza",
+            role: "Ibu Bapa",
             subject: "Bahasa Jepun",
             message: "Alhamdulillah sangat mudah berurusan dengan cikgu. Anak saya pun okay dan faham dengan apa yang cikgu ajar."
         }
     ];
+    renderTestimonials(dummyTestimonials);
+}
+
+function renderTestimonials(testimonials) {
+    const wrapper = document.getElementById('testimoniWrapper');
+    const loading = document.getElementById('testimoniLoading');
+    const swiper = document.getElementById('testimoniSwiper');
+    
+    if (!wrapper) return;
     
     wrapper.innerHTML = '';
     
     testimonials.forEach(t => {
         const slide = document.createElement('div');
         slide.className = 'swiper-slide';
+        // Gunakan message, name, subject (role tak dipaparkan)
         slide.innerHTML = `
             <div class="testi-card">
                 <div class="testi-text">"${t.message}"</div>
@@ -139,8 +182,8 @@ window.submitForm = async function() {
                  `• Mesej: ${message || "Tiada"}`;
 
     try {
-        // Try save to Supabase (optional)
-        await supabase.from('students').insert([{
+        // Save to Supabase with publishable key
+        const { data, error } = await supabase.from('students').insert([{
             name: studentName,
             parent_name: parentName || '',
             parent_email: parentEmail,
@@ -149,13 +192,18 @@ window.submitForm = async function() {
             subject: subject
         }]);
         
-        console.log('Saved to Supabase');
+        if (error) {
+            console.error('Supabase insert error:', error);
+            // Still continue to WhatsApp
+        } else {
+            console.log('Saved to Supabase:', data);
+        }
     } catch (error) {
         console.error('Error saving to Supabase:', error);
         // Continue to WhatsApp even if Supabase fails
     }
     
-    // Open WhatsApp
+    // Open WhatsApp - ensure URL is correct
     const whatsappUrl = `https://wa.me/60128258869?text=${encodeURIComponent(waText)}`;
     window.open(whatsappUrl, '_blank');
     
@@ -173,5 +221,6 @@ window.submitForm = async function() {
 // ==================== INIT ====================
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM loaded');
+    // Load testimonials from Supabase
     loadTestimonials();
 });
